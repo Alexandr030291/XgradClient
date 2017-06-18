@@ -22,9 +22,9 @@ public class Attack {
             do {
                 int _min_time = Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MIN));
                 int _max_time = Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MAX));
-
                 try {
-                    JSObject element = (JSObject) controller.getNodeList(ElementXpath.x_paths.BTN_ATTACK);
+                    NodeList list = controller.getNodeList(ElementXpath.x_paths.BTN_ATTACK);
+                    JSObject element = (JSObject) list.item(0);
                    if (element!=null) {
                         element.call("submit");
                         TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
