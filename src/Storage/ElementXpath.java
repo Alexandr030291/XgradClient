@@ -9,15 +9,26 @@ public class ElementXpath {
     public enum x_paths{
         BTN_ATTACK,
         AUTO_IN,
+        OPEN_MAP,
+        BTN_SIGN_IN,
         UNKNOWN
     }
 
-    public static String getXPath(x_paths paths) {
+    public static String nameToXPath(x_paths paths) {
         switch (paths) {
             case BTN_ATTACK: return "btn_attack";
             case AUTO_IN: return "auto_in";
+            case OPEN_MAP: return "open_map";
+            case BTN_SIGN_IN: return "btn_sign_in";
         }
         return "error_command";
+    }
+
+    public static String getXPath(x_paths paths) {
+        if (x_paths.BTN_SIGN_IN==paths){
+            return "value='ВОЙТИ'";
+        }
+       return properties.getProperty(nameToXPath(paths),"UTF8");
     }
 
     private static final String sFileName = "src/Resource/ElementXpath.properties";

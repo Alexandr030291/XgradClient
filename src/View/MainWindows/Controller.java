@@ -2,6 +2,7 @@ package View.MainWindows;
 
 import Controller.Attack;
 import Storage.ElementXpath;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
@@ -11,6 +12,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.swing.plaf.nimbus.State;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
@@ -23,6 +25,8 @@ public class Controller {
 
     @FXML
     private WebView id_browser;
+
+    private Document document;
 
     @FXML
     public void initialize() throws IOException {
@@ -42,7 +46,11 @@ public class Controller {
         Document document = id_browser.getEngine().getDocument();
         if (document==null) return null;
         XPathExpression expression = XPathFactory.newInstance().newXPath().compile(x_path);
-        return (NodeList) expression.evaluate(document, XPathConstants.NODESET);
+        System.out.print(document.toString());
+        /*
+        return (NodeList) expression.evaluate(document.getXmlEncoding(), XPathConstants.NODESET);
+        */
+        return  null;
     }
 
 

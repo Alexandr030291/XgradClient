@@ -34,7 +34,7 @@ public class OptionsApp {
     }
 
     public static String getSetting(opt name) {
-        return properties.getProperty(getName(name));
+        return properties.getProperty(getName(name),"UTF8");
     }
 
     public static void setSetting(opt name,String value){
