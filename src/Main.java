@@ -7,8 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
-
+import Controller.Console;
 
 public class Main extends Application {
 
@@ -28,6 +29,10 @@ public class Main extends Application {
         stage.setMinWidth(window_width_min);
         stage.setMinHeight(window_height_min);
         stage.show();
+        Console console = new Console();
+        Thread thread = new Thread(console);
+        thread.start();
+        stage.setOnCloseRequest(we -> console.stop());
     }
 
     public static void main(String[] args) {
