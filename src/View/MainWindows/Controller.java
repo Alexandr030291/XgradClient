@@ -7,7 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -35,12 +36,17 @@ public class Controller {
         id_browser.getEngine().load("http://www.x-grad.com");
     }
 
-    public NodeList getNodeList(ElementXpath.x_paths path) throws XPathExpressionException {
+    public Node getNodeList(ElementXpath.x_paths path) throws XPathExpressionException {
         String x_path = ElementXpath.getXPath(path);
         Document document = id_browser.getEngine().getDocument();
         if (document==null) return null;
         XPathExpression expression = XPathFactory.newInstance().newXPath().compile(x_path);
-        return (NodeList) expression.evaluate(document, XPathConstants.NODESET);
+        return (Node) expression.evaluate(document, XPathConstants.NODESET);
     }
 
+
+
+    public WebView getId_browser() {
+        return id_browser;
+    }
 }

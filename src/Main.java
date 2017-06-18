@@ -28,6 +28,7 @@ public class Main extends Application {
         stage.setMinWidth(window_width_min);
         stage.setMinHeight(window_height_min);
         stage.show();
+
     }
 
     public static void main(String[] args) {

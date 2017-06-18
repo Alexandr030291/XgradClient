@@ -4,6 +4,9 @@ package Controller;
 import Storage.ElementXpath;
 import Storage.OptionsApp;
 import View.MainWindows.Controller;
+import javafx.scene.Node;
+import netscape.javascript.JSObject;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import javax.xml.xpath.XPathExpressionException;
@@ -21,9 +24,9 @@ public class Attack {
                 int _max_time = Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MAX));
 
                 try {
-                    NodeList list = controller.getNodeList(ElementXpath.x_paths.BTN_ATTACK);
-                   if (list!=null&&list.getLength() > 0) {
-                       list.item(0);
+                    JSObject element = (JSObject) controller.getNodeList(ElementXpath.x_paths.BTN_ATTACK);
+                   if (element!=null) {
+                        element.call("submit");
                         TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
                     }else{
                        stop=!stop;
