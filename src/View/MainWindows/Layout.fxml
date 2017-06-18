@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.web.WebView?>
+
+<?import javafx.scene.layout.Pane?>
+<HBox styleClass="window" stylesheets="@Layout.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainWindows.Controller">
+  <children>
+    <Pane fx:id="id_control_panel" minWidth="240"/>
+    <WebView fx:id="id_browser" />
+    </children>
+</HBox>

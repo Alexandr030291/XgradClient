@@ -1,0 +1,31 @@
+.label{
+    -fx-font-size: 16px;
+    -fx-pref-width: inherit;
+}
+.pane{
+    -fx-min-height: 32px;
+    -fx-min-width: 70px;
+    -fx-pref-width: 70px;
+    -fx-pref-height: 32px;
+    -fx-max-height: 32px;
+    -fx-max-width: 70px;
+}
+
+.label_title_in_tab{
+     -fx-font-size: 16px;
+     -fx-pref-width: 200px;
+     -fx-pref-height: 32px;
+     -fx-alignment: center;
+}
+
+.v-box {
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-insets: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: blue;
+    -fx-pref-width: 240px;
+}
+
+.h-box{
+}

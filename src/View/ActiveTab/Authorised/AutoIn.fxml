@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<VBox stylesheets="@AutoIn.css"
+      styleClass="v-box"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="View.ActiveTab.Authorised.AutoIn">
+  <children>
+    <VBox>
+      <children>
+        <Label text="Логин: "/>
+        <TextField fx:id="id_login"/>
+      </children>
+    </VBox>
+    <VBox>
+      <children>
+        <Label text="Пароль:"/>
+        <PasswordField fx:id="id_password"/>
+      </children>
+    </VBox>
+    <HBox>
+      <children>
+        <Button fx:id="id_btn_auto_in" text="Авторизоваться"/>
+        <Button fx:id="id_btn_auto_out" text="Выйти"/>
+      </children>
+    </HBox>
+    <VBox>
+      <children>
+        <ListView fx:id="id_login_list"/>
+        <Button fx:id="id_btn_add" text="Добавить/Изменить"/>
+        <HBox>
+          <children>
+            <Button fx:id="id_btn_del" text="Удалить"/>
+            <Button fx:id="id_btn_select" text="Выбрать"/>
+          </children>
+        </HBox>
+
+      </children>
+    </VBox>
+  </children>
+</VBox>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+
+<VBox stylesheets="@ActTab.css"
+      styleClass="v-box"
+      xmlns="http://javafx.com/javafx/8.0.131"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="View.ActiveTab.ActTab">
+  <children>
+    <TitledPane animated="false" text="Авторизация">
+      <content>
+        <Pane fx:id="id_auto_in" />
+      </content>
+    </TitledPane>
+    <TitledPane animated="false" text="untitled">
+      <content>
+        <Pane />
+      </content>
+    </TitledPane>
+    <TitledPane animated="false" text="untitled">
+      <content>
+        <Pane  />
+      </content>
+    </TitledPane>
+  </children>
+</VBox>
+

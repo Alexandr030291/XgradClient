@@ -1,0 +1,53 @@
+.tab{
+    -fx-font-size: 16px;
+    -fx-min-width: 240px;
+    -fx-max-width: 240px;
+}
+
+.label_title_in_tab{
+    -fx-font-size: 16px;
+    -fx-pref-width: 240px;
+    -fx-pref-height: 32px;
+    -fx-alignment: center;
+}
+
+.button_default{
+    -fx-font-size: 16px;
+    -fx-pref-height: 32px;
+}
+
+.window{
+    -fx-min-width: 860px;
+    -fx-min-height: 480px;
+    -fx-pref-width: 860px;
+    -fx-pref-height: 480px;
+}
+
+.web-view{
+    -fx-pref-height: inherit;
+    -fx-pref-width: 10000px;
+}
+
+.button_control{
+    -fx-font-size: 8px;
+
+    -fx-min-height: 16px;
+    -fx-pref-height: 16px;
+    -fx-max-height: 16px;
+
+    -fx-min-width: 20px;
+    -fx-pref-width: 20px;
+    -fx-max-width: 20px;
+}
+.text-field_control{
+    -fx-font-size: 14px;
+    -fx-max-height: 40px;
+    -fx-min-width: 40px;
+    -fx-text-alignment: right;
+}
+
+.label_control{
+    -fx-max-height: 32px;
+    -fx-min-height: 32px;
+    -fx-pref-width: inherit;
+}

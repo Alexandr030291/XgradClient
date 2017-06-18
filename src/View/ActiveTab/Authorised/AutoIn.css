@@ -1,0 +1,26 @@
+.v-box{
+    -fx-padding: 2px;
+    -fx-pref-width: 240px;
+    -fx-pref-height: inherit;
+    -fx-spacing: 5px;
+}
+.label{
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+}
+.text-field{
+    -fx-font-size: 16px;
+    -fx-alignment: center-left;
+}
+.password-field{
+    -fx-font-size: 16px;
+    -fx-alignment: center-left;
+}
+.button{
+    -fx-font-size: 16px;
+    -fx-pref-width: inherit;
+}
+.list-view{
+    -fx-font-size: 16px;
+    -fx-pref-height: 96px;
+}
