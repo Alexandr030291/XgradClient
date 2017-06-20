@@ -1,6 +1,6 @@
 package View.SettingsTab.TimeWindows;
 
-import Controller.ActiveHandler;
+import Controllers.ActiveHandler;
 import Storage.OptionsApp;
 import View.SplitterText.SPText;
 import javafx.fxml.FXML;

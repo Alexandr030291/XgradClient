@@ -1,18 +1,18 @@
 package View.MainWindows;
 
-import Controller.Attack;
+import Controllers.Attack;
+import Controllers.Console;
+import Controllers.JSBuild;
 import Storage.ElementXpath;
-import javafx.beans.value.ChangeListener;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.swing.plaf.nimbus.State;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
@@ -20,6 +20,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 
 public class Controller {
+    private  Console console = new Console();
     @FXML
     private Pane id_control_panel;
 
@@ -38,6 +39,19 @@ public class Controller {
     public void start() {
         id_browser.getEngine().setJavaScriptEnabled(true);
         id_browser.getEngine().load("http://www.x-grad.com");
+        console.controller = this;
+        Task<Void> com = new Task<Void>() {
+            @Override
+            protected Void call() {
+                while (true) {
+                    String buffer = console.getCommand();
+                    Platform.runLater(() -> doing(buffer));
+                }
+            }
+        };
+        Thread thread = new Thread(com);
+        thread.start();
+        runScript(JSBuild.alert());
     }
 
     public NodeList getNodeList(ElementXpath.x_paths path) {
@@ -50,7 +64,6 @@ public class Controller {
         } catch (XPathExpressionException e) {
             e.printStackTrace();
         }
-        //System.out.print(document.toString());
         return null;
     }
 
@@ -60,5 +73,9 @@ public class Controller {
 
     public WebView getId_browser() {
         return id_browser;
+    }
+
+    private void doing(String buffer){
+        console.Select(buffer);
     }
 }

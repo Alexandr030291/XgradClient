@@ -1,6 +1,6 @@
 package View.SplitterText;
 
-import Controller.ActiveHandler;
+import Controllers.ActiveHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

@@ -1,4 +1,4 @@
-package Controller;
+package Controllers;
 
 public abstract class ActiveHandler {
     public abstract void onClicked();

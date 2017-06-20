@@ -1,4 +1,3 @@
-import Controller.Console;
 import Storage.ElementXpath;
 import Storage.OptionsApp;
 import View.MainWindows.Controller;
@@ -10,14 +9,15 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
+import static java.lang.System.exit;
+
 public class Main extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-          final int window_width_min = 960;
+        final int window_width_min = 960;
         final int window_height_min = 640;
         URL recourse = getClass().getResource("View/MainWindows/Layout.fxml");
-
         stage.setTitle("Клиент для онлайн-игры Тайный город");
         FXMLLoader fxmlLoader = new FXMLLoader(recourse);
         Parent root = fxmlLoader.load();
@@ -27,13 +27,10 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinWidth(window_width_min);
         stage.setMinHeight(window_height_min);
+        stage.setOnCloseRequest(we -> exit(0));
         stage.show();
-        Console console = new Console();
-        console.controller = сontroller;
-        Thread thread = new Thread(console);
-        thread.start();
-        stage.setOnCloseRequest(we -> console.stop());
     }
+
 
     public static void main(String[] args) {
         OptionsApp.main(args);
