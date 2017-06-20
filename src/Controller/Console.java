@@ -4,8 +4,6 @@ import Storage.ElementXpath;
 import View.MainWindows.Controller;
 import netscape.javascript.JSObject;
 import org.w3c.dom.NodeList;
-
-import javax.xml.xpath.XPathExpressionException;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -67,30 +65,21 @@ public class Console implements Runnable {
                     Attack.loop();
                     break;
                 case OPEN_MAP:
-                    try {
-                        NodeList list = controller.getNodeList(ElementXpath.x_paths.OPEN_MAP);
-                        JSObject element = (JSObject) list.item(0);
-                        if (element!=null) {
-                            element.call("submit");
-                            //TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
-                        }
-                    } catch (XPathExpressionException e) {
-                        e.printStackTrace();
-                        exit(1);
+                    NodeList list = controller.getNodeList(ElementXpath.x_paths.OPEN_MAP);
+                    JSObject element = (JSObject) list.item(0);
+                    if (element!=null) {
+                        element.call("submit");
+                        //TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
                     }
                     break;
-                case BTN_SIGN_IN:
-                    try {
-                        NodeList list = controller.getNodeList(ElementXpath.x_paths.BTN_SIGN_IN);
-                        JSObject element = (JSObject) list.item(0);
-                        if (element!=null) {
-                            element.call("submit");
-                            //TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
-                        }
-                    } catch (XPathExpressionException e) {
-                        e.printStackTrace();
-                        exit(1);
-                    }
+                case BTN_SIGN_IN:/*
+                    list = controller.getNodeList(ElementXpath.x_paths.BTN_SIGN_IN);
+                    element = (JSObject) list.item(0);
+                    if (element!=null) {
+                        element.call("submit");
+                        //TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
+                    }*/
+                    controller.runScript(JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_SIGN_IN),0));
                     break;
             }
         }

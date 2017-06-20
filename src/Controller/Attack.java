@@ -31,7 +31,7 @@ public class Attack {
                     }else{
                        stop=!stop;
                    }
-                } catch (InterruptedException | XPathExpressionException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             } while (!stop);

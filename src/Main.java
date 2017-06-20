@@ -1,26 +1,14 @@
+import Controller.Console;
 import Storage.ElementXpath;
 import Storage.OptionsApp;
 import View.MainWindows.Controller;
 import javafx.application.Application;
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
-import Controller.Console;
-import netscape.javascript.JSObject;
-import org.w3c.dom.Node;
-
-import javax.swing.plaf.nimbus.State;
 
 public class Main extends Application {
 
