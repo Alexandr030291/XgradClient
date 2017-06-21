@@ -4,18 +4,23 @@ import java.io.*;
 import java.util.Properties;
 
 public class OptionsApp {
-    public enum opt{
+    public enum opt {
         TIME_MIN,
         TIME_MAX,
         HEALTH_MIN,
         HEALING_MIN,
-        ATTACKED
-        }
+        ATTACKED,
+        LOGIN,
+        PASSWORD
+    }
 
     private static final String sFileName = "src/Resource/settings.properties";
     private static String sDirSeparator = System.getProperty("file.separator");
     private static Properties properties = new Properties();
     private static String sFilePath;
+
+    private static String login;
+    private static String password;
 
     private static String getName(opt name) {
         switch (name) {
@@ -34,10 +39,24 @@ public class OptionsApp {
     }
 
     public static String getSetting(opt name) {
-        return properties.getProperty(getName(name),"UTF8");
+        if (opt.LOGIN == name) {
+            return login;
+        }
+        if (opt.PASSWORD == name) {
+            return password;
+        }
+        return properties.getProperty(getName(name), "UTF8");
     }
 
     public static void setSetting(opt name,String value){
+        if (opt.LOGIN==name){
+            login = value;
+            return;
+        }
+        if (opt.PASSWORD==name) {
+            password = value;
+            return;
+        }
         properties.setProperty(getName(name), String.valueOf(value));
     }
 

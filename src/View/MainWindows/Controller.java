@@ -53,34 +53,10 @@ public class Controller {
         };
         Thread thread = new Thread(com);
         thread.start();
-        runScript(JSBuild.alert());
-    }
-/*
-    public NodeList getNodeList(ElementXpath.x_paths path) {
-        String x_path = ElementXpath.getXPath(path);
-        Document document = id_browser.getEngine().getDocument();
-        if (document==null) return null;
-        System.out.print(document.toString());
-        try {
-            XPathExpression expression = XPathFactory.newInstance().newXPath().compile(x_path);
-            return (NodeList) expression.evaluate(document.getXmlEncoding(), XPathConstants.NODESET);
-        } catch (XPathExpressionException e) {
-            e.printStackTrace();
-            exit(e.hashCode());
-        }
-        return null;
-    }
-*/
-    public Object runScript(String script){
-       // id_browser.getEngine().reload();
-       /* if (id_browser.getEngine().getDocument()!=null) {
-            System.out.print(id_browser.getEngine().getDocument().getXmlEncoding());
-        }/**/
-        return id_browser.getEngine().executeScript(script);
     }
 
-    public WebView getId_browser() {
-        return id_browser;
+    public Object runScript(String script){
+        return id_browser.getEngine().executeScript(script);
     }
 
     private void doing(String buffer){

@@ -30,13 +30,11 @@ public class Main extends Application {
         stage.setMinHeight(window_height_min);
         stage.setOnCloseRequest(we -> exit(0));
         stage.show();
-        сontroller.runScript(JSBuild.alert());
     }
 
 
     public static void main(String[] args) {
         OptionsApp.main(args);
-        ElementXpath.main(args);
         Application.launch(args);
     }
 

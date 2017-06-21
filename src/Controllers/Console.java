@@ -1,9 +1,8 @@
 package Controllers;
 
 import Storage.ElementXpath;
+import Storage.OptionsApp;
 import View.MainWindows.Controller;
-import netscape.javascript.JSObject;
-import org.w3c.dom.NodeList;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -14,10 +13,8 @@ public class Console{
         ATTACKED_TRUE,
         OPEN_MAP,
         BTN_SIGN_IN,
+        AUTO_IN,
         EXIT,
-        ALERT,
-        DOCUMENT,
-        TEST_TEXT,
         CONTINUE
     }
 
@@ -29,9 +26,7 @@ public class Console{
             case ATTACKED_TRUE: return "ATTACKED_TRUE";
             case OPEN_MAP: return "OPEN_MAP";
             case BTN_SIGN_IN: return "BTN_SIGN_IN";
-            case ALERT: return "ALERT";
-            case DOCUMENT: return "DOCUMENT";
-            case TEST_TEXT: return "TEST_TEXT";
+            case AUTO_IN: return "AUTO_IN";
         }
         return "CONTINUE";
     }
@@ -49,14 +44,8 @@ public class Console{
         if (str.equals(comToString(com.BTN_SIGN_IN))){
             return com.BTN_SIGN_IN;
         }
-        if (str.equals(comToString(com.ALERT))){
-            return com.ALERT;
-        }
-        if (str.equals(comToString(com.DOCUMENT))){
-            return com.DOCUMENT;
-        }
-        if (str.equals(comToString(com.TEST_TEXT))){
-            return com.TEST_TEXT;
+        if (str.equals(comToString(com.AUTO_IN))){
+            return com.AUTO_IN;
         }
         return com.CONTINUE;
     }
@@ -89,15 +78,15 @@ public class Console{
             case BTN_SIGN_IN:
                 System.out.print("\t"+controller.runScript(JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_SIGN_IN), 0))+ "\n\n");
                 break;
-            case ALERT:
-                controller.runScript(JSBuild.alert());
+            case AUTO_IN:
+                String login  = "\""+OptionsApp.getSetting(OptionsApp.opt.LOGIN)+"\"";
+                String password ="\""+OptionsApp.getSetting(OptionsApp.opt.PASSWORD)+"\"";
+                controller.runScript(JSBuild.setValueElement(ElementXpath.getXPath(ElementXpath.x_paths.INPUT_LOGIN),login,0));
+                controller.runScript(JSBuild.setValueElement(ElementXpath.getXPath(ElementXpath.x_paths.INPUT_PASSWORD),password,0));
+                controller.runScript(JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_SIGN_IN), 0));
+                controller.runScript(JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_PLAY), 0));
                 break;
-            case DOCUMENT:
-                System.out.print("\t"+controller.runScript(JSBuild.getDocument())+"\n\n");
-                break;
-            case TEST_TEXT:
-                System.out.print("\t"+controller.runScript(JSBuild.testGetText("Hello!!"))+"\n\n");
-                break;
+
         }
     }
 }
