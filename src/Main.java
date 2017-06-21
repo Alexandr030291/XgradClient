@@ -1,3 +1,4 @@
+import Controllers.JSBuild;
 import Storage.ElementXpath;
 import Storage.OptionsApp;
 import View.MainWindows.Controller;
@@ -29,6 +30,7 @@ public class Main extends Application {
         stage.setMinHeight(window_height_min);
         stage.setOnCloseRequest(we -> exit(0));
         stage.show();
+        сontroller.runScript(JSBuild.alert());
     }
 
 

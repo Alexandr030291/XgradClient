@@ -26,7 +26,7 @@ public class ElementXpath {
 
     public static String getXPath(x_paths paths) {
         if (x_paths.BTN_SIGN_IN==paths){
-            return "\"//*[contains(@value,'ВОЙТИ')]\"";
+            return "//*[contains(@value,'ВОЙТИ')]";
         }
        return properties.getProperty(nameToXPath(paths),"UTF8");
     }

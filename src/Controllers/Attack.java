@@ -19,7 +19,7 @@ public class Attack {
             do {
                 int _min_time = Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MIN));
                 int _max_time = Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MAX));
-                try {
+               /* try {
                     NodeList list = controller.getNodeList(ElementXpath.x_paths.BTN_ATTACK);
                     JSObject element = (JSObject) list.item(0);
                    if (element!=null) {
@@ -30,7 +30,7 @@ public class Attack {
                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
             } while (!stop);
             stop = !stop;
         }

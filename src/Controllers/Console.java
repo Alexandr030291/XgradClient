@@ -16,6 +16,8 @@ public class Console{
         BTN_SIGN_IN,
         EXIT,
         ALERT,
+        DOCUMENT,
+        TEST_TEXT,
         CONTINUE
     }
 
@@ -28,6 +30,8 @@ public class Console{
             case OPEN_MAP: return "OPEN_MAP";
             case BTN_SIGN_IN: return "BTN_SIGN_IN";
             case ALERT: return "ALERT";
+            case DOCUMENT: return "DOCUMENT";
+            case TEST_TEXT: return "TEST_TEXT";
         }
         return "CONTINUE";
     }
@@ -47,6 +51,12 @@ public class Console{
         }
         if (str.equals(comToString(com.ALERT))){
             return com.ALERT;
+        }
+        if (str.equals(comToString(com.DOCUMENT))){
+            return com.DOCUMENT;
+        }
+        if (str.equals(comToString(com.TEST_TEXT))){
+            return com.TEST_TEXT;
         }
         return com.CONTINUE;
     }
@@ -69,25 +79,24 @@ public class Console{
                 Attack.loop();
                 break;
             case OPEN_MAP:
-                NodeList list = controller.getNodeList(ElementXpath.x_paths.OPEN_MAP);
+            /*/    NodeList list = controller.getNodeList(ElementXpath.x_paths.OPEN_MAP);
                 JSObject element = (JSObject) list.item(0);
                 if (element != null) {
                     element.call("submit");
                     //TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
-                }
+                }*/
                 break;
-            case BTN_SIGN_IN:/*
-                    list = controller.getNodeList(ElementXpath.x_paths.BTN_SIGN_IN);
-                    element = (JSObject) list.item(0);
-                    if (element!=null) {
-                        element.call("submit");
-                        //TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
-                    }*/
-                boolean result = (Boolean) controller.runScript(JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_SIGN_IN), 0));
-                System.out.print(result+"\n");
+            case BTN_SIGN_IN:
+                System.out.print("\t"+controller.runScript(JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_SIGN_IN), 0))+ "\n\n");
                 break;
             case ALERT:
                 controller.runScript(JSBuild.alert());
+                break;
+            case DOCUMENT:
+                System.out.print("\t"+controller.runScript(JSBuild.getDocument())+"\n\n");
+                break;
+            case TEST_TEXT:
+                System.out.print("\t"+controller.runScript(JSBuild.testGetText("Hello!!"))+"\n\n");
                 break;
         }
     }

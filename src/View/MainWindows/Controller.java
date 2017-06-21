@@ -19,6 +19,8 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 
+import static java.lang.System.exit;
+
 public class Controller {
     private  Console console = new Console();
     @FXML
@@ -38,7 +40,7 @@ public class Controller {
 
     public void start() {
         id_browser.getEngine().setJavaScriptEnabled(true);
-        id_browser.getEngine().load("http://www.x-grad.com");
+        id_browser.getEngine().load("http://app01.x-grad.com/start/");
         console.controller = this;
         Task<Void> com = new Task<Void>() {
             @Override
@@ -53,21 +55,27 @@ public class Controller {
         thread.start();
         runScript(JSBuild.alert());
     }
-
+/*
     public NodeList getNodeList(ElementXpath.x_paths path) {
         String x_path = ElementXpath.getXPath(path);
         Document document = id_browser.getEngine().getDocument();
         if (document==null) return null;
+        System.out.print(document.toString());
         try {
             XPathExpression expression = XPathFactory.newInstance().newXPath().compile(x_path);
             return (NodeList) expression.evaluate(document.getXmlEncoding(), XPathConstants.NODESET);
         } catch (XPathExpressionException e) {
             e.printStackTrace();
+            exit(e.hashCode());
         }
         return null;
     }
-
+*/
     public Object runScript(String script){
+       // id_browser.getEngine().reload();
+       /* if (id_browser.getEngine().getDocument()!=null) {
+            System.out.print(id_browser.getEngine().getDocument().getXmlEncoding());
+        }/**/
         return id_browser.getEngine().executeScript(script);
     }
 
