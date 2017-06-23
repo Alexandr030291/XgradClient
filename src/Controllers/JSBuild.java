@@ -15,18 +15,18 @@ public class JSBuild {
     private static final String com_set_value = "item.value = value;";
     private static final String return_true = "return true;";
     private static final String end_time_out = "},timeout)";
-    private static final String end_function = "}())";
+    private static final String end_function = "}";
 
     public static String clickElement(String x_path,Integer num_id,Integer timeout){
         String var = toVarXPath(x_path)+toVarNumId(num_id);
         var+= find_elements+get_item+com_click+return_true;
-        return toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var)));
+        return "("+toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var)))+"())";
     }
 
     public static String setValueElement(String x_path,String value, Integer num_id,Integer timeout){
         String var = toVarXPath(x_path)+toVarNumId(num_id)+toVarValue(value);
         var+= find_elements+get_item+com_set_value+return_true;
-        return toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var)));
+        return "("+toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var)))+"())";
     }
 
     private static String toFunction(String string){
