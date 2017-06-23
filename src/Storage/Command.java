@@ -4,7 +4,7 @@ import static Controllers.TimeOut.randomTimeMileSec;
 
 public class Command {
     protected String name;
-    int timeout;
+    protected int timeout;
     protected String command;
 
     public Command(){

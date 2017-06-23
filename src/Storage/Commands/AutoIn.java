@@ -5,8 +5,8 @@ import Storage.Command;
 import Storage.ElementXpath;
 import Storage.OptionsApp;
 
-public class AUTO_IN extends Command {
-    public AUTO_IN(){
+public class AutoIn extends Command {
+    public AutoIn(){
         String login  = "\""+ OptionsApp.getSetting(OptionsApp.opt.LOGIN)+"\"";
         String password ="\""+OptionsApp.getSetting(OptionsApp.opt.PASSWORD)+"\"";
         int timeout = getRandomTimeout();

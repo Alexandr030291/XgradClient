@@ -1,5 +1,3 @@
-import Storage.Commands.AUTO_IN;
-import Storage.Command;
 import Storage.OptionsApp;
 import View.MainWindows.Controller;
 import javafx.application.Application;
@@ -19,7 +17,7 @@ public class Main extends Application {
         final int window_width_min = 960;
         final int window_height_min = 640;
         URL recourse = getClass().getResource("View/MainWindows/Layout.fxml");
-        stage.setTitle("Клиент для онлайн-игры Тайный город");
+        stage.setTitle("Клиент для онлайн-игры Тайный город. Созданно при поддерке темного двора");
         FXMLLoader fxmlLoader = new FXMLLoader(recourse);
         Parent root = fxmlLoader.load();
         Controller сontroller = fxmlLoader.getController();

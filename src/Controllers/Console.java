@@ -26,7 +26,7 @@ public class Console{
             case ATTACKED_TRUE: return "ATTACKED_TRUE";
             case OPEN_MAP: return "BTN_OPEN_MAP";
             case BTN_SIGN_IN: return "BTN_SIGN_IN";
-            case AUTO_IN: return "AUTO_IN";
+            case AUTO_IN: return "AutoIn";
         }
         return "CONTINUE";
     }
