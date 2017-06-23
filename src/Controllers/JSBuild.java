@@ -20,13 +20,13 @@ public class JSBuild {
     public static String clickElement(String x_path,Integer num_id,Integer timeout){
         String var = toVarXPath(x_path)+toVarNumId(num_id);
         var+= find_elements+get_item+com_click+return_true;
-        return "("+toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var)))+"())";
+        return toAutoRun(toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var))));
     }
 
     public static String setValueElement(String x_path,String value, Integer num_id,Integer timeout){
         String var = toVarXPath(x_path)+toVarNumId(num_id)+toVarValue(value);
         var+= find_elements+get_item+com_set_value+return_true;
-        return "("+toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var)))+"())";
+        return toAutoRun(toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var))));
     }
 
     private static String toFunction(String string){
@@ -51,6 +51,10 @@ public class JSBuild {
 
     private static String toVarTimeOut(Integer timeout){
         return  var_time_out + timeout + ";";
+    }
+
+    private static String toAutoRun(String string){
+        return "("+string+"())";
     }
 
 }
