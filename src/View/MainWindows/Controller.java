@@ -3,6 +3,8 @@ package View.MainWindows;
 import Controllers.Attack;
 import Controllers.Console;
 import Controllers.JSBuild;
+import Storage.Command;
+import Storage.Commands.AUTO_IN;
 import Storage.ElementXpath;
 import javafx.application.Platform;
 import javafx.concurrent.Task;

@@ -1,15 +1,8 @@
 package Controllers;
 
 
-import Storage.ElementXpath;
 import Storage.OptionsApp;
 import View.MainWindows.Controller;
-import netscape.javascript.JSObject;
-import org.w3c.dom.NodeList;
-
-import java.util.concurrent.TimeUnit;
-
-import static Controllers.TimeOut.randomTime;
 
 public class Attack {
     public static boolean stop = false;
@@ -20,11 +13,11 @@ public class Attack {
                 int _min_time = Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MIN));
                 int _max_time = Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MAX));
                /* try {
-                    NodeList list = controller.getNodeList(ElementXpath.x_paths.BTN_ATTACK);
+                    NodeList list = controller.getNodeList(ElementXpath.x_paths.BTN_A_ATTACK);
                     JSObject element = (JSObject) list.item(0);
                    if (element!=null) {
                         element.call("submit");
-                        TimeUnit.SECONDS.sleep(randomTime(_min_time, _max_time));
+                        TimeUnit.SECONDS.sleep(randomTimeMileSec(_min_time, _max_time));
                     }else{
                        stop=!stop;
                    }
