@@ -17,11 +17,11 @@ public class Main extends Application {
         final int window_width_min = 960;
         final int window_height_min = 640;
         URL recourse = getClass().getResource("View/MainWindows/Layout.fxml");
-        stage.setTitle("Клиент для онлайн-игры Тайный город. Созданно при поддерке темного двора");
+        stage.setTitle("Клиент для онлайн-игры Тайный город. Создано при поддержке темного двора");
         FXMLLoader fxmlLoader = new FXMLLoader(recourse);
         Parent root = fxmlLoader.load();
-        Controller сontroller = fxmlLoader.getController();
-        сontroller.start();
+        Controller controller = fxmlLoader.getController();
+        controller.start();
         Scene scene = new Scene(root, window_width_min, window_height_min);
         stage.setScene(scene);
         stage.setMinWidth(window_width_min);

@@ -18,15 +18,15 @@ public class JSBuild {
     private static final String end_function = "}";
 
     public static String clickElement(String x_path,Integer num_id,Integer timeout){
-        String var = toVarXPath(x_path)+toVarNumId(num_id);
-        var+= find_elements+get_item+com_click+return_true;
-        return toAutoRun(toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var))));
+        String command = toVarXPath(x_path)+toVarNumId(num_id);
+        command+= find_elements+get_item+com_click+return_true;
+        return toAutoRun(command,timeout);
     }
 
     public static String setValueElement(String x_path,String value, Integer num_id,Integer timeout){
-        String var = toVarXPath(x_path)+toVarNumId(num_id)+toVarValue(value);
-        var+= find_elements+get_item+com_set_value+return_true;
-        return toAutoRun(toFunction(toVarTimeOut(timeout)+toTimeOut(toFunction(var))));
+        String command = toVarXPath(x_path)+toVarNumId(num_id)+toVarValue(value);
+        command+= find_elements+get_item+com_set_value+return_true;
+        return toAutoRun(command,timeout);
     }
 
     private static String toFunction(String string){
@@ -53,8 +53,12 @@ public class JSBuild {
         return  var_time_out + timeout + ";";
     }
 
-    private static String toAutoRun(String string){
-        return "("+string+"())";
+    private static String toAutoRun(String string, Integer timeout){
+        String result = toFunction(string);
+        result =toTimeOut(result);
+        result = toVarTimeOut(timeout)+result;
+        result = toFunction(result);
+        return "("+result+"())";
     }
 
 }
