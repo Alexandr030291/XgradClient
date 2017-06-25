@@ -141,3 +141,40 @@ const selectEfectAttack2 = function () {
 const openInventory = function () {
     return clickElement("//*[contains(@title,'Открыть Инвентарь')]");
 };
+
+
+function findElements(arg){
+    let max_loop = 100;
+    let result = [];
+    let elem = document.evaluate(arg, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    let max_element = (elem.snapshotLength>max_loop)?max_loop:elem.snapshotLength;
+    for (let i = 0; i<max_element;i++){
+        result.push(elem.snapshotItem(i))
+    }
+    return result
+}
+
+var timerId0 = setInterval(function () {
+    if (findElements("//*[contains(text(),'Атака')]/..").length>0){
+        if (findElements("//*[contains(@class,'equippeditem inactive')]/../*").length>0) {
+            findElements("//*[contains(@class,'equippeditem inactive')]/../*")[0].click()
+        }else {
+            findElements("//*[contains(text(),'Атака')]/..")[0].click()
+        }
+    }
+},  250);
+
+var timerId1 = setInterval(function () {
+    if (findElements("//*[contains(text(),'закрыть')]/../*").length>0){
+        findElements("//*[contains(text(),'закрыть')]/../*")[0].click();
+    }
+},  200);
+
+var timerId2 = setInterval(function () {
+    if (findElements("//a[contains(text(),'Бой')]").length>0){
+        findElements("//a[contains(text(),'Бой')]")[0].click();
+        if (findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]").length > 0) {
+            findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")[2].click();
+        }
+    }
+},  2000);

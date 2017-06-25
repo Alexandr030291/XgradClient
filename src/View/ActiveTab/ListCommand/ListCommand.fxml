@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<VBox stylesheets="@ListCommand.css"
+      xmlns="http://javafx.com/javafx/8.0.112"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="View.ActiveTab.ListCommand.ListCommand">
+   <children>
+      <ListView fx:id="id_list_view"/>
+        <HBox>
+            <Button text="Выполнить"/>
+            <Button text="Остановить"/>
+        </HBox>
+   </children>
+</VBox>

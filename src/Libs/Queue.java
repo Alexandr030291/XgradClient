@@ -74,11 +74,11 @@ public class Queue<T> {
         return true;
     }
 
-    public long size(){
+    public int size(){
         return unload.size();
     }
 
-    public T[] getQueue(){
-        return (T[]) unload.toArray();
+    public T getElement(int id){
+       return unload.get(id) ;
     }
 }

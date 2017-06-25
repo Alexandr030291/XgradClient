@@ -2,6 +2,8 @@ package View.SettingsTab.TimeWindows;
 
 import Controllers.ActiveHandler;
 import Storage.OptionsApp;
+import static Storage.OptionsApp.*;
+import static Storage.OptionsApp.opt.*;
 import View.SplitterText.SPText;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +34,8 @@ public class TimeWindow extends ActiveHandler {
         _text_max_controller = sp_text_max.getController();
         _text_min_controller = sp_text_min.getController();
 
-        _text_min_controller.setValue(Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MIN)));
-        _text_max_controller.setValue(Integer.parseInt(OptionsApp.getSetting(OptionsApp.opt.TIME_MAX)));
+        _text_min_controller.setValue(Integer.parseInt(getSetting(TIME_MIN)));
+        _text_max_controller.setValue(Integer.parseInt(getSetting(TIME_MAX)));
         _text_min_controller.setActiveHandler(this);
         _text_max_controller.setActiveHandler(this);
     }
@@ -44,8 +46,8 @@ public class TimeWindow extends ActiveHandler {
         int max = _text_max_controller.getValue();
         if (min<0) min=0;
         if (min < max) max=min+1;
-        OptionsApp.setSetting(OptionsApp.opt.TIME_MIN, String.valueOf(min));
-        OptionsApp.setSetting(OptionsApp.opt.TIME_MAX, String.valueOf(max));
+        setSetting(TIME_MIN, String.valueOf(min));
+        setSetting(TIME_MAX, String.valueOf(max));
         _text_max_controller.setMin(min);
         _text_min_controller.setMax(max);
     }

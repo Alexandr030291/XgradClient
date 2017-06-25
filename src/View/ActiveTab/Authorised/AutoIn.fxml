@@ -28,7 +28,7 @@
     </VBox>
     <HBox>
       <children>
-        <Button fx:id="id_btn_auto_in" text="Авторизоваться"/>
+        <Button fx:id="id_btn_auto_in" text="Войти"/>
         <Button fx:id="id_btn_auto_out" text="Выйти"/>
       </children>
     </HBox>

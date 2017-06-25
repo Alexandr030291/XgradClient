@@ -20,9 +20,9 @@
         <Pane />
       </content>
     </TitledPane>
-    <TitledPane animated="false" text="untitled">
+    <TitledPane animated="false" text="Очередь команд">
       <content>
-        <Pane  />
+        <Pane  fx:id="id_list_command"/>
       </content>
     </TitledPane>
   </children>

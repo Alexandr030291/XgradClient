@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -14,6 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
+        stage.getIcons().setAll(new Image(getClass().getResource("Icon.png").toExternalForm()));
+
         final int window_width_min = 960;
         final int window_height_min = 640;
         URL recourse = getClass().getResource("View/MainWindows/Layout.fxml");
