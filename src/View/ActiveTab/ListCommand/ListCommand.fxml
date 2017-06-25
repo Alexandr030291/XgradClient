@@ -13,8 +13,8 @@
    <children>
       <ListView fx:id="id_list_view"/>
         <HBox>
-            <Button text="Выполнить"/>
-            <Button text="Остановить"/>
+            <Button fx:id="id_btn_run" text="Выполнить"/>
+            <Button fx:id="id_btn_stop" text="Остановить"/>
         </HBox>
    </children>
 </VBox>

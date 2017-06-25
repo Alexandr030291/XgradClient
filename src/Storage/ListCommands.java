@@ -4,16 +4,22 @@ import Libs.Queue;
 import Storage.Commands.AutoIn;
 import Storage.Commands.GoToLocation;
 import Storage.Commands.ToAttackMob;
+import View.MainWindows.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ListCommands {
     private static Queue<Command> _list_command = new Queue<>();
     private static ObservableList<String> names = FXCollections.observableArrayList();
+    private static Controller controller;
 
     public static void autoIN(){
         _list_command.push(new AutoIn());
         updateNameList();
+    }
+
+    public static void setController(Controller controller) {
+        ListCommands.controller = controller;
     }
 
     public static void gotoLocation(int id){
@@ -35,5 +41,19 @@ public class ListCommands {
 
     public static ObservableList<String> getNameList() {
         return names;
+    }
+
+    public static boolean isEmpty(){
+       return (_list_command.size()==0);
+    }
+
+    public static void run(){
+        Command command = _list_command.pop();
+        controller.runScript(command.getCommand());
+        updateNameList();
+    }
+
+    public static int getTimeFistCommand(){
+        return _list_command.getElement(0).getRandomTimeout();
     }
 }

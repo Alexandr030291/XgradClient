@@ -15,7 +15,7 @@ public class JSBuild {
     private static final String com_click = "item.click();";
     private static final String com_set_value = "item.value = value;";
     private static final String return_true = "return true;";
-    private static final String end_time_out = "},timeout)";
+    private static final String end_time_out = ",timeout)";
     private static final String end_function = "}";
 
     @NotNull
@@ -65,7 +65,7 @@ public class JSBuild {
         result =toTimeOut(result);
         result = toVarTimeOut(timeout)+result;
         result = toFunction(result);
-        return "("+result+"())";
+        return "("+result+"());";
     }
 
 }

@@ -7,6 +7,7 @@ import Storage.OptionsApp;
 
 public class AutoIn extends Command {
     public AutoIn(){
+
         String login  = "\""+ OptionsApp.getSetting(OptionsApp.opt.LOGIN)+"\"";
         String password ="\""+OptionsApp.getSetting(OptionsApp.opt.PASSWORD)+"\"";
         int timeout = getRandomTimeout();
@@ -18,5 +19,7 @@ public class AutoIn extends Command {
         timeout += getRandomTimeout();
         command+= JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_PLAY),0,timeout);
         name = "Авторизовать: "+login;
+        this.timeout +=5000;
+        this.timeout += timeout;
     }
 }

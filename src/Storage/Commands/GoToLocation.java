@@ -12,6 +12,7 @@ public class GoToLocation extends Command {
         command+= JSBuild.clickElement(ElementXpath.getXPath(x_paths.BTN_OPEN_MAP),0,time_out);
         time_out+= getRandomTimeout();
         command+= JSBuild.clickElement(ElementXpath.getXPath(getLocation(id)),0,time_out);
+        this.timeout = time_out;
     }
 
     private x_paths getLocation(int id) {

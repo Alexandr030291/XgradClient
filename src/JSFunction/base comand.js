@@ -178,3 +178,4 @@ var timerId2 = setInterval(function () {
         }
     }
 },  2000);
+

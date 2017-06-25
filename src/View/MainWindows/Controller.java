@@ -2,6 +2,7 @@ package View.MainWindows;
 
 import Controllers.Attack;
 import Controllers.Console;
+import Storage.ListCommands;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -25,13 +26,14 @@ public class Controller {
                 load(getClass().
                         getResource("../ControlPanel/ControlPanel.fxml")));
         Attack.controller = this;
+        ListCommands.setController(this);
 
     }
 
     public void start() {
         id_browser.getEngine().setJavaScriptEnabled(true);
         id_browser.getEngine().load("http://app01.x-grad.com/start/");
-        console.controller = this;
+        /*console.controller = this;
         Task<Void> com = new Task<Void>() {
             @Override
             protected Void call() {
@@ -42,7 +44,7 @@ public class Controller {
             }
         };
         Thread thread = new Thread(com);
-        thread.start();
+        thread.start();*/
     }
 
     public Object runScript(String script){
