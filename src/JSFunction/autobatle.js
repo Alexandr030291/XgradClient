@@ -18,6 +18,9 @@ function attak(i) {
             if (findElements("//a[contains(@class,'ability')]").length > 0) {
                 findElements("//a[contains(@class,'ability')]")[i].click();
                 i++;
+                if (findElements("//*[contains(text(),'закрыть')]/../../a").length>0){
+                    findElements("//*[contains(text(),'закрыть')]/../../a")[0].click();
+                }
             }
             if (findElements("//*[contains(@class,'progress')] /*[contains(@style,'width')] ").length > 0) {
                 let str_xp =findElements("//*[contains(@class,'progress')] /*[contains(@style,'width')] ")[0].style.width;
