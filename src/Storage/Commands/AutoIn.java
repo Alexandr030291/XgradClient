@@ -19,7 +19,7 @@ public class AutoIn extends Command {
         timeout += getRandomTimeout();
         command+= JSBuild.clickElement(ElementXpath.getXPath(ElementXpath.x_paths.BTN_PLAY),0,timeout);
         name = "Авторизовать: "+login;
-        this.timeout +=5000;
+        this.timeout += 1000;
         this.timeout += timeout;
     }
 }

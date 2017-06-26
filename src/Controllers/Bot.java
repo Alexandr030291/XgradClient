@@ -21,7 +21,7 @@ public class Bot {
                         int timeout = ListCommands.getTimeFistCommand();
                         Platform.runLater(ListCommands::run);
                         try {
-                            TimeUnit.SECONDS.sleep(timeout);
+                            TimeUnit.MILLISECONDS.sleep(timeout);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

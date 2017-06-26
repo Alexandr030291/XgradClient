@@ -54,6 +54,6 @@ public class ListCommands {
     }
 
     public static int getTimeFistCommand(){
-        return _list_command.getElement(0).getRandomTimeout();
+        return _list_command.getElement(0).getTimeout();
     }
 }

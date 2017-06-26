@@ -154,6 +154,19 @@ function findElements(arg){
     return result
 }
 
+
+
+
+var timerId3 = setTimeout(function () {
+    if (findElements("//*[contains(text(),'Атака')]/..").length>0){
+        if (findElements("//*[contains(@class,'equippeditem inactive')]/../*").length>0) {
+            findElements("//*[contains(@class,'equippeditem inactive')]/../*")[0].click()
+        }else {
+            findElements("//*[contains(text(),'Атака')]/..")[0].click()
+        }
+    }
+},  250);
+
 var timerId0 = setInterval(function () {
     if (findElements("//*[contains(text(),'Атака')]/..").length>0){
         if (findElements("//*[contains(@class,'equippeditem inactive')]/../*").length>0) {
