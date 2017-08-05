@@ -2,13 +2,13 @@ package View.MainWindows;
 
 import Controllers.Attack;
 import Controllers.Console;
+import Controllers.JSBuild;
 import Storage.ListCommands;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 import java.io.IOException;
 
@@ -45,6 +45,17 @@ public class Controller {
         };
         Thread thread = new Thread(com);
         thread.start();*/
+    }
+
+    public JSObject[] getElements(String xpath){
+        String script = JSBuild.getElements(xpath);
+        JSObject object = (JSObject)id_browser.getEngine().executeScript(script);
+        int length = (int) object.getMember("length");
+        JSObject[] result = new JSObject[length];
+        for (int i=0; i<length;i++){
+            result[i] = (JSObject) object.getSlot(i);
+        }
+        return result;
     }
 
     public Object runScript(String script){

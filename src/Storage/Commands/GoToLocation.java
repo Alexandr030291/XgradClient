@@ -4,15 +4,12 @@ import Controllers.JSBuild;
 import Storage.Command;
 import Storage.ElementXpath;
 import Storage.ElementXpath.x_paths;
+import View.MainWindows.Controller;
 
-public class GoToLocation extends Command {
+public class GoToLocation implements Command {
+    private int id;
     public GoToLocation(int id) {
-        name = "Перейти на локацию: "+ getNameLocation(id);
-        int time_out = getRandomTimeout();
-        command+= JSBuild.clickElement(ElementXpath.getXPath(x_paths.BTN_OPEN_MAP),0,time_out);
-        time_out+= getRandomTimeout();
-        command+= JSBuild.clickElement(ElementXpath.getXPath(getLocation(id)),0,time_out);
-        this.timeout = time_out;
+        this.id=id;
     }
 
     private x_paths getLocation(int id) {
@@ -111,5 +108,25 @@ public class GoToLocation extends Command {
             default:
                 return "";
         }
+    }
+
+    @Override
+    public void run(Controller controller) {
+        String command ="";
+        int time_out = getRandomTimeout();
+        command+= JSBuild.clickElement(ElementXpath.getXPath(x_paths.BTN_OPEN_MAP),0,time_out);
+        time_out+= getRandomTimeout();
+        command+= JSBuild.clickElement(ElementXpath.getXPath(getLocation(id)),0,time_out);
+      //  this.timeout = time_out;
+    }
+
+    @Override
+    public String getName() {
+        return "Перейти на локацию: "+ getNameLocation(id);
+    }
+
+    @Override
+    public int getTimeout() {
+        return 0;
     }
 }

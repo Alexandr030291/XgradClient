@@ -192,3 +192,11 @@ var timerId2 = setInterval(function () {
     }
 },  2000);
 
+//в груповых боях
+//найти хп союзников
+//"//*[contains(@class,'warriors-list type2')]//*[contains(@style,'width')]"
+//Найти хп противников
+//"//*[contains(@class,'warriors-list type2')]//*[contains(@style,'width')]"
+
+var xp_player = document.evaluate("//*[contains(@class,'warriors-list type2')]//*[contains(@style,'width')]", document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+if (xp_player.length>0) xp_player=xp_player.snapshotItem(0);

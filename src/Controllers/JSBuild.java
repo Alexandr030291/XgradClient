@@ -30,6 +30,20 @@ public class JSBuild {
         command+= find_elements+get_item+com_set_value+return_true;
         return toAutoRun(command,timeout);
     }
+
+    //аналогичный метод методу $x(x_path) в консоле браузера
+    @NotNull
+    public static String getElements(String x_path){
+        String result = toVarXPath(x_path)+find_elements;
+        result += "let max_element=elem_array.snapshotLength;" +
+                "let elem_arr =[]; for (let i = 0; i<max_element;i++){" +
+                "        elem_arr.push(elem_array.snapshotItem(i))" +
+                "    }";
+       /* result += "class Obj{constructor(){this.arr=elem_arr;this.length = max_element}};return new Obj;";*/
+       result += "return elem_arr";
+        return "("+toFunction(result)+"());";
+    }
+
     @Contract(pure = true)
     @NotNull
     private static String toFunction(String string){

@@ -49,7 +49,7 @@ public class ListCommands {
 
     public static void run(){
         Command command = _list_command.pop();
-        controller.runScript(command.getCommand());
+        command.run(controller);
         updateNameList();
     }
 
