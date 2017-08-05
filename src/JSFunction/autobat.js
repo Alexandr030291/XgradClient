@@ -1,6 +1,6 @@
-var id_mob=0; //переменая определяющая на какого моба напасть
-var min_xp=20; //минимум хп после которого начинается лечение
-var end_loop=60; //время работы в полусекундах
+var id_mob=1; //переменая определяющая на какого моба напасть
+var min_xp=50; //минимум хп после которого начинается лечение
+var end_loop=60*30*2; //время работы в полусекундах
 var log_time_run =false; //показывать отчет времени до завершения
 
 function findElements(arg){
@@ -16,7 +16,20 @@ function findElements(arg){
 
 function attak(i){
     id_mob %= 3;
+    min_xp%=100;
     i%=2;
+    if(end_loop>0) {
+        setTimeout(function () {
+            attak(i);
+            end_loop--;
+            if(log_time_run)console.log(end_loop);
+        }, 500);
+    }else {
+        setTimeout(function () {
+            attak(i);
+        }, 500);
+        return;
+    }
     if (findElements("//*[contains(text(),'закрыть')]/../../a").length>0){
         findElements("//*[contains(text(),'закрыть')]/../../a")[0].click();
     }
@@ -43,6 +56,17 @@ function attak(i){
             }
         }
     }else{
+        let timer_mob_obj = findElements("//*[contains(@class,'mob')]");
+        if (timer_mob_obj.length>0){
+            let timer_mob_arr = [];
+            timer_mob_arr=timer_mob_obj[0].outerText.split(':');
+            let timer_mob = 0;
+            for (let j=0; j<timer_mob_arr.length;j++){
+                timer_mob*=60;
+                timer_mob+=timer_mob_arr[j];
+            }
+        }
+        if (timer_mob_obj>0) return;
         if (findElements("//a[contains(text(),'Бой')]").length>0){
             findElements("//a[contains(text(),'Бой')]")[0].click();
             var mob_max= findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]").length;
@@ -53,13 +77,7 @@ function attak(i){
         }
 
     }
-    if(end_loop>0) {
-        setTimeout(function () {
-            attak(i);
-            end_loop--;
-            if(log_time_run)console.log(end_loop);
-        }, 500);
-    }
 }
 
 attak(0);
+
