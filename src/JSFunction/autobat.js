@@ -7,7 +7,12 @@ var id_mob=1; //переменая определяющая на какого м
 var min_xp=50; //минимум хп после которого начинается лечение
 var end_loop=60*60*2; //время работы в полусекундах, end_loop=0 остановит работу, любое положительное число запустит
 var log_time_run =true; //показывать отчет времени до завершения
+var ability=0; //прием
+var timer_auto=0; //индентификатор таймера
 
+var stop =function(){clearInterval(timer_auto);}; //функция остановки полностью останавливает исполнение
+
+//функция поиска элементов
 function findElements(arg){
     let max_loop = 100;
     let result = [];
@@ -19,32 +24,21 @@ function findElements(arg){
     return result
 }
 
-function attak(i){
+
+//функция выбора действия
+function attak(){
     id_mob %= 3;
     min_xp%=100;
-    i%=2;
+    ability%=2;
     if(end_loop>0) {
         setTimeout(function () {
-            attak(i);
+         //   attak(ability);
             end_loop--;
-            if(log_time_run){
-                let hour=end_loop;
-                let mili= hour%2;
-                hour-=mili;
-                hour/=2;
-                mili*=500;
-                let sec = hour%60;
-                hour-=sec;
-                hour/=60;
-                let minute = hour%60;
-                hour-=minute;
-                hour/=60;
-                console.log(""+hour+":"+minute+":"+sec+"."+mili);}
         }, 500);
     }else {
-        setTimeout(function () {
-            attak(i);
-        }, 500);
+  /*      setTimeout(function () {
+            attak(ability);
+        }, 500);*/
         return;
     }
     let mes_win_obj=findElements("//*[contains(text(),'закрыть')]/../../a");
@@ -53,8 +47,8 @@ function attak(i){
     }
     if (findElements("//*[contains(text(),'Атака')]/..").length > 0) {
         if (findElements("//a[contains(@class,'ability')]").length > 0) {
-            findElements("//a[contains(@class,'ability')]")[i].click();
-            i++;
+            findElements("//a[contains(@class,'ability')]")[ability].click();
+            ability++;
         }
         if (findElements("//*[contains(@class,'progress')] /*[contains(@style,'width')] ").length > 0) {
             let str_xp =findElements("//*[contains(@class,'progress')] /*[contains(@style,'width')] ")[0].style.width;
@@ -69,6 +63,9 @@ function attak(i){
         if (findElements("//*[contains(@title,'ловушка')]").length > 0){
             findElements("//*[contains(@title,'ловушка')]")[0].click();
         }else {
+            if (findElements("//*[contains(@title,'шкур')]").length > 0) {
+                findElements("//*[contains(@title,'шкур')]")[0].click();
+            }
             if (findElements("//*[contains(text(),'Атака')]/..").length > 0) {
                 findElements("//*[contains(text(),'Атака')]/..")[0].click()
             }
@@ -96,5 +93,23 @@ function attak(i){
     }
 }
 
-attak(0);
+
+
+//запуск переодических действий
+timer_auto = setInterval(function(){
+    attak();
+    if(log_time_run){
+        let hour=end_loop;
+        let mili= hour%2;
+        hour-=mili;
+        hour/=2;
+        mili*=5;
+        let sec = hour%60;
+        hour-=sec;
+        hour/=60;
+        let minute = hour%60;
+        hour-=minute;
+        hour/=60;
+        console.log(""+hour+":"+minute+":"+sec+"."+mili);}
+    },500);
 
