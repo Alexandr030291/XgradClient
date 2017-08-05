@@ -35,8 +35,9 @@ function attak(i){
         }, 500);
         return;
     }
-    if (findElements("//*[contains(text(),'закрыть')]/../../a").length>0){
-        findElements("//*[contains(text(),'закрыть')]/../../a")[0].click();
+    let mes_win_obj=findElements("//*[contains(text(),'закрыть')]/../../a");
+    for(let j=mes_win_obj.length-1;j>=0;j--){
+        mes_win_obj[j].click();
     }
     if (findElements("//*[contains(text(),'Атака')]/..").length > 0) {
         if (findElements("//a[contains(@class,'ability')]").length > 0) {
