@@ -57,16 +57,15 @@ function attak(i){
         }
     }else{
         let timer_mob_obj = findElements("//*[contains(@class,'mob')]");
+        let timer_mob = 0;
         if (timer_mob_obj.length>0){
-            let timer_mob_arr = [];
-            timer_mob_arr=timer_mob_obj[0].outerText.split(':');
-            let timer_mob = 0;
+            let timer_mob_arr = timer_mob_obj[0].outerText.split(':');
             for (let j=0; j<timer_mob_arr.length;j++){
                 timer_mob*=60;
                 timer_mob+=timer_mob_arr[j];
             }
         }
-        if (timer_mob_obj>0) return;
+        if (timer_mob>0) return;
         if (findElements("//a[contains(text(),'Бой')]").length>0){
             findElements("//a[contains(text(),'Бой')]")[0].click();
             var mob_max= findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]").length;
