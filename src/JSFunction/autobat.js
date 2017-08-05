@@ -77,7 +77,7 @@ function attak(i){
         let timer_mob_obj = findElements("//*[contains(@class,'mob')]");
         let timer_mob = 0;
         if (timer_mob_obj.length>0){
-            let timer_mob_arr = timer_mob_obj[0].outerText.split(':');
+            let timer_mob_arr = timer_mob_obj[0].textContent.split(':');
             for (let j=0; j<timer_mob_arr.length;j++){
                 timer_mob*=60;
                 timer_mob+=timer_mob_arr[j];
