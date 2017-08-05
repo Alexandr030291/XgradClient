@@ -1,6 +1,6 @@
 var id_mob=1; //переменая определяющая на какого моба напасть
 var min_xp=50; //минимум хп после которого начинается лечение
-var end_loop=60*30*2; //время работы в полусекундах
+var end_loop=60*30*2; //время работы в полусекундах, end_loop=0 остановит работу, любое положительное число запустит
 var log_time_run =false; //показывать отчет времени до завершения
 
 function findElements(arg){
@@ -68,7 +68,7 @@ function attak(i){
         if (timer_mob>0) return;
         if (findElements("//a[contains(text(),'Бой')]").length>0){
             findElements("//a[contains(text(),'Бой')]")[0].click();
-            var mob_max= findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]").length;
+            let mob_max = findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]").length;
             if ( mob_max> 0
             /* && findElements("//a[contains(@class,'ability')]").length == 0*/) {
                 findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")[id_mob%mob_max].click();
