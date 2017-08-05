@@ -5,8 +5,8 @@
 
 var id_mob=1; //переменая определяющая на какого моба напасть
 var min_xp=50; //минимум хп после которого начинается лечение
-var end_loop=60*30*2; //время работы в полусекундах, end_loop=0 остановит работу, любое положительное число запустит
-var log_time_run =false; //показывать отчет времени до завершения
+var end_loop=60*60*2; //время работы в полусекундах, end_loop=0 остановит работу, любое положительное число запустит
+var log_time_run =true; //показывать отчет времени до завершения
 
 function findElements(arg){
     let max_loop = 100;
@@ -27,7 +27,19 @@ function attak(i){
         setTimeout(function () {
             attak(i);
             end_loop--;
-            if(log_time_run)console.log(end_loop);
+            if(log_time_run){
+                let hour=end_loop;
+                let mili= hour%2;
+                hour-=mili;
+                hour/=2;
+                mili*=500;
+                let sec = hour%60;
+                hour-=sec;
+                hour/=60;
+                let minute = hour%60;
+                hour-=minute;
+                hour/=60;
+                console.log(""+hour+":"+minute+":"+sec+"."+mili);}
         }, 500);
     }else {
         setTimeout(function () {
