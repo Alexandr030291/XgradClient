@@ -1,6 +1,7 @@
-var id_mob=0;
-var min_xp=20;
-var end_loop=60;
+var id_mob=0; //переменая определяющая на какого моба напасть
+var min_xp=20; //минимум хп после которого начинается лечение
+var end_loop=60; //время работы в полусекундах
+var log_time_run =false; //показывать отчет времени до завершения
 
 function findElements(arg){
     let max_loop = 100;
@@ -44,9 +45,10 @@ function attak(i){
     }else{
         if (findElements("//a[contains(text(),'Бой')]").length>0){
             findElements("//a[contains(text(),'Бой')]")[0].click();
-            if (findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]").length > 0
+            var mob_max= findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]").length;
+            if ( mob_max> 0
             /* && findElements("//a[contains(@class,'ability')]").length == 0*/) {
-                findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")[id_mob].click();
+                findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")[id_mob%mob_max].click();
             }
         }
 
@@ -55,7 +57,7 @@ function attak(i){
         setTimeout(function () {
             attak(i);
             end_loop--;
-            console.log(end_loop);
+            if(log_time_run)console.log(end_loop);
         }, 500);
     }
 }
