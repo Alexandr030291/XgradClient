@@ -258,7 +258,7 @@
     window.id_mob = function(arg){id_mob=arg;};
     window.min_xp = function(arg){min_xp=arg;};;
     window.end_loop = function(arg){end_loop=arg;}; ;
-    window.log_time_run = function(arg){log_time_run;};
+    window.log_time_run = function(arg){log_time_run=arg;};
     window.log_loot = function(arg){log_loot=arg;};
     window.openBox = openBox;
     window.PATH_BOX_OBELISK=PATH_BOX_OBELISK;
