@@ -56,10 +56,10 @@
             let mes_loot = "Вы получили: ";
             let mes_loot_obj = findObjLoot();
             for (let j = mes_loot_obj.length - 1; j > 0; j--) {
-                mes_loot += mes_loot_obj[j].title + ", ";
+                mes_loot += "\""+mes_loot_obj[j].title + "\", ";
             }
             if (mes_loot_obj.length > 0) {
-                mes_loot += mes_loot_obj[0].title;
+                mes_loot += "\""+mes_loot_obj[j].title + "\". ";
                 console.log(mes_loot);
             }
             mes_loot_obj = null;
