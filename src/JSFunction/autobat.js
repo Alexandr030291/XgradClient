@@ -12,6 +12,24 @@ var ability=0; //прием
 var timer_auto=0; //индентификатор таймера
 
 var stop =function(){clearInterval(timer_auto);}; //функция остановки полностью останавливает исполнение
+var start =function () { //запуск переодических действий
+    timer_auto = setInterval(function(){
+        attak();
+        if(log_time_run){
+            let hour=end_loop;
+            let mili= hour%2;
+            hour-=mili;
+            hour/=2;
+            mili*=5;
+            let sec = hour%60;
+            hour-=sec;
+            hour/=60;
+            let minute = hour%60;
+            hour-=minute;
+            hour/=60;
+            console.log(""+hour+":"+minute+":"+sec+"."+mili);}
+    },500);
+};
 
 //функция поиска элементов
 function findElements(arg){
@@ -110,23 +128,8 @@ function attak(){
     }
 }
 
+stop();
+start();
 
 
-//запуск переодических действий
-timer_auto = setInterval(function(){
-    attak();
-    if(log_time_run){
-        let hour=end_loop;
-        let mili= hour%2;
-        hour-=mili;
-        hour/=2;
-        mili*=5;
-        let sec = hour%60;
-        hour-=sec;
-        hour/=60;
-        let minute = hour%60;
-        hour-=minute;
-        hour/=60;
-        console.log(""+hour+":"+minute+":"+sec+"."+mili);}
-    },500);
 
