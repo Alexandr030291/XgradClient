@@ -59,7 +59,9 @@
     function findObjBtnAttacking(){return findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")}
     function findObjBtnMap(){return findElements("//*[contains(@onclick,'map')]");}
     function findObjMapKadaf(){return findElements("//area[contains(@data-id,'11')]");}
-
+    function findObjBtnPortal(){return findElements("//*[contains(@class,'jqmClose')]");}	
+    function findObjTextPortal(){return findElements("//*[contains(@class,'jqmClose')]/*[contains(text(),'Портал')]");}	
+	
     function timerRunaway(time){
 	    time*=1000;
 	    setTimeout(function(){
@@ -72,6 +74,19 @@
                         obj_map_kadaf[0].click();
                     }
                     obj_map_kadaf=null;
+		   setTimeout(function(){
+		   	let obj_btn_portal = findObjBtnPortal();
+			let obj_txt_portal = findObjTextPortal();
+			if (obj_btn_portal.length > 0){
+			    if (obj_txt_portal.length > 0){
+                                obj_btn_portal[1].click();
+			    }else{
+				obj_btn_portal[0].click();
+			    }
+                    	}
+			obj_btn_portal = null;
+			obj_txt_portal = null;
+		   },500);
                 },500);
             }
             obj_btn_map = null;
