@@ -67,7 +67,7 @@
             if (obj_btn_map.length > 0){
                 obj_btn_map[0].click();
 		        setTimeout(function(){
-                    let obj_map_kadaf = findObjBtnMap();
+                    let obj_map_kadaf = findObjMapKadaf();
                     if (obj_map_kadaf.length > 0){
                         obj_map_kadaf[0].click();
                     }
