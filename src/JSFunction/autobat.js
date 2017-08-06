@@ -5,8 +5,9 @@
 
 var id_mob=1; //переменая определяющая на какого моба напасть
 var min_xp=50; //минимум хп после которого начинается лечение
-var end_loop=60*60*2; //время работы в полусекундах, end_loop=0 остановит работу, любое положительное число запустит
-var log_time_run =true; //показывать отчет времени до завершения
+var end_loop=8*60*60*2-2; //время работы в полусекундах, end_loop=0 остановит работу, любое положительное число запустит
+var log_time_run =false; //показывать отчет времени до завершения
+var log_loot=true; //показывать отчет по дропу
 var ability=0; //прием
 var timer_auto=0; //индентификатор таймера
 
@@ -31,20 +32,33 @@ function attak(){
     min_xp%=100;
     ability%=2;
     if(end_loop>0) {
-        setTimeout(function () {
+ //       setTimeout(function () {
          //   attak(ability);
             end_loop--;
-        }, 500);
+  //      }, 500);
     }else {
   /*      setTimeout(function () {
             attak(ability);
         }, 500);*/
         return;
     }
+    if(log_loot){
+        let mes_loot;
+        let mes_loot_obj = findElements("/*[@class='reward_loot']/*/*");
+        for (let j = mes_loot_obj.length - 1; j > 0; j--) {
+            mes_loot += mes_loot_obj[j].title + ", ";
+        }
+        if (mes_loot_obj.length > 0) {
+            mes_loot += mes_loot_obj[j].title
+        }
+        console.log(mes_loot);
+    }
+    mes_loot_obj=null;
     let mes_win_obj=findElements("//*[contains(text(),'закрыть')]/../../a");
     for(let j=mes_win_obj.length-1;j>=0;j--){
         mes_win_obj[j].click();
     }
+    mes_win_obj=null;
     if (findElements("//*[contains(text(),'Атака')]/..").length > 0) {
         if (findElements("//a[contains(@class,'ability')]").length > 0) {
             findElements("//a[contains(@class,'ability')]")[ability].click();
