@@ -167,12 +167,12 @@
         id_mob %= 3;
         min_xp %= 100;
         ability %= 2;
+        clearMessageWindows();
         if (end_loop <= 0) {
             return;
         }
         end_loop--;
         printLoot();
-        clearMessageWindows();
         let btn_attack_obj = findObjBtnAttackRed();
         let btn_attach_obj_blue = findObjBtnAttackBlue();
         if (btn_attack_obj.length > 0||btn_attach_obj_blue.length>0) {
@@ -190,6 +190,7 @@
 
         btn_attack_obj = null;
         btn_attach_obj_blue = null;
+        clearMessageWindows();
     }
 
     function start() { //запуск переодических действий
