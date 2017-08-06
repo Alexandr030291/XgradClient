@@ -43,21 +43,24 @@ function attak(){
         return;
     }
     if(log_loot){
-        let mes_loot;
-        let mes_loot_obj = findElements("/*[@class='reward_loot']/*/*");
+        let mes_loot="Вы получили: ";
+        let mes_loot_obj = findElements("//*[@class='reward_loot']/*/*");
         for (let j = mes_loot_obj.length - 1; j > 0; j--) {
             mes_loot += mes_loot_obj[j].title + ", ";
         }
         if (mes_loot_obj.length > 0) {
-            mes_loot += mes_loot_obj[j].title
+            mes_loot += mes_loot_obj[0].title;
+            console.log(mes_loot);
         }
-        console.log(mes_loot);
+        mes_loot_obj=null;
     }
-    mes_loot_obj=null;
+
     let mes_win_obj=findElements("//*[contains(text(),'закрыть')]/../../a");
-    for(let j=mes_win_obj.length-1;j>=0;j--){
-        mes_win_obj[j].click();
-    }
+//    setTimeout(function () {
+        for(let j=mes_win_obj.length-1;j>=0;j--){
+            mes_win_obj[j].click();
+        }
+ //   }, 250);
     mes_win_obj=null;
     if (findElements("//*[contains(text(),'Атака')]/..").length > 0) {
         if (findElements("//a[contains(@class,'ability')]").length > 0) {
