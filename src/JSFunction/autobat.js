@@ -23,9 +23,11 @@
     let timer_auto = 0;
 
     const PATH_BOX_OBELISK = "//*[contains(@alt,'Обелиск ')]/../../a";
+    const PATH_BOX_SPRING_4 = "//*[contains(@alt,'Коробка майских праздников')]/../../a";
     const PATH_BTN_INFO ="//*[contains(@class,'btn-info')]";
     const PATH_TEXT_BOX_LOOT = "//*[@class='content']/img";
     const PATH_TEXT_MOB_LOOT = "//*[@class='reward_loot']/*/*";
+    const PATH_BTN_BAG= "//*[contains(@class,'bag ')]";
     function findElements(arg) {
         let max_loop = 100;
         let result = [];
@@ -89,22 +91,6 @@
             mes_win_obj[j].click();
         }
         mes_win_obj = null;
-    }
-
-
-
-    function printLootBox() {
-        let mes_loot = "Вы получили: ";
-        let mes_loot_obj = findElements(PATH_TEXT_BOX_LOOT);
-        for (let j = mes_loot_obj.length - 1; j > 0; j--) {
-            mes_loot += "\""+mes_loot_obj[j].alt + "\", ";
-        }
-        if (mes_loot_obj.length > 0) {
-            mes_loot += "\""+mes_loot_obj[0].alt + "\". ";
-            console.log(mes_loot);
-        }
-        mes_loot_obj = null;
-        setTimeout(clearMessageWindows,500);
     }
 
     function clickAbility() {
@@ -219,24 +205,47 @@
         clearInterval(timer_auto);
     } //функция остановки полностью останавливает исполнение
 
+
+    function printLootBox(name,amt) {
+        let mes_loot = "Вы получили: ";
+        let mes_loot_obj = findElements(PATH_TEXT_BOX_LOOT);
+        for (let j = mes_loot_obj.length - 1; j > 0; j--) {
+            mes_loot += "\""+mes_loot_obj[j].alt + "\", ";
+        }
+        if (mes_loot_obj.length > 0) {
+            mes_loot += "\""+mes_loot_obj[0].alt + "\". ";
+            console.log(mes_loot);
+        }
+        mes_loot_obj = null;
+        setTimeout(next,500,name,amt);
+        setTimeout(clearMessageWindows,500);
+    }
+
+    let bag_id=0;
+
+    function next(name,amt) {
+        let obj_box = findElements(name);
+        let obj_beg = findElements(PATH_BTN_BAG);
+        // console.log(amt);
+        if (amt<=0)return;
+        if (obj_box.length>0&&amt>0){
+            amt--;
+            obj_box[0].click();
+            setTimeout(printLootBox,500,name,amt);
+            obj_box = null;
+        }else if(bag_id<obj_beg.length){
+            obj_beg[bag_id].click();
+            setTimeout(next,500,name,amt);
+            bag_id++;
+        }
+    }
+
     function openBox(name,amt) {
+        bag_id=0;
         let obj_btn_info = findElements(PATH_BTN_INFO);
         if (obj_btn_info.length===0) return;
         obj_btn_info[0].click();
-        let next = function () {
-            let obj_box = findElements(name);
-            console.log(amt);
-            if (obj_box.length>0&&amt>0){
-                obj_box[0].click();
-            }else{
-                return
-            }
-            setTimeout(printLootBox,500);
-            obj_box = null;
-            amt--;
-            setTimeout(next,500);
-        };
-        setTimeout(next,500);
+        setTimeout(next,500,name,amt);
         obj_btn_info = null;
     }
 
@@ -253,5 +262,5 @@
     window.log_loot = log_loot ;
     window.openBox = openBox;
     window.PATH_BOX_OBELISK=PATH_BOX_OBELISK;
-
+    window.PATH_BOX_SPRING_4=PATH_BOX_SPRING_4;
 })();
