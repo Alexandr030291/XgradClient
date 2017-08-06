@@ -59,7 +59,7 @@
                 mes_loot += "\""+mes_loot_obj[j].title + "\", ";
             }
             if (mes_loot_obj.length > 0) {
-                mes_loot += "\""+mes_loot_obj[j].title + "\". ";
+                mes_loot += "\""+mes_loot_obj[0].title + "\". ";
                 console.log(mes_loot);
             }
             mes_loot_obj = null;
