@@ -10,6 +10,7 @@
  *  start() - запусть отслеживатель
  *  stop() - остановить
  *  openBox(name) - вскрыть коробки доступные значения PATH_BOX_OBELISK и PATH_BOX_SPRING_4
+ *  timerRunaway(time) - команда побега на кодаф, время через которое надо сбежать на кадаф пишется в секунда
  * */
 
 (function () {
@@ -56,6 +57,26 @@
     function findObjTimerMob() {return findElements("//*[contains(@class,'mob')]");}
     function findObjBtnBattle(){return findElements("//a[contains(text(),'Бой')]");}
     function findObjBtnAttacking(){return findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")}
+    function findObjBtnMap(){return findElements("//*[contains(@onclick,'map')]");}
+    function findObjMapKadaf(){return findElements("//area[contains(@data-id,'11')]");}
+
+    function timerRunaway(time){
+	    time*=1000;
+	    setTimeout(function(){
+            let obj_btn_map = findObjBtnMap();
+            if (obj_btn_map.length > 0){
+                obj_btn_map[0].click();
+		        setTimeout(function(){
+                    let obj_map_kadaf = findObjBtnMap();
+                    if (obj_map_kadaf.length > 0){
+                        obj_map_kadaf[0].click();
+                    }
+                    obj_map_kadaf=null;
+                },500);
+            }
+            obj_btn_map = null;
+        },time);
+    }
 
     function printLoot() {
         let mes_loot = "Вы получили: ";
@@ -265,4 +286,5 @@
     window.openBox = openBox;
     window.PATH_BOX_OBELISK=PATH_BOX_OBELISK;
     window.PATH_BOX_SPRING_4=PATH_BOX_SPRING_4;
+    window.timerRunaway=timerRunaway;
 })();
