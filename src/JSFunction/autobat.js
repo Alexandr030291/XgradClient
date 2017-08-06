@@ -53,32 +53,18 @@
     function findObjBtnBattle(){return findElements("//a[contains(text(),'Бой')]");}
     function findObjBtnAttacking(){return findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")}
 
-    function printLoot(path) {
-            let mes_loot = "Вы получили: ";
-            let mes_loot_obj = findElements(path);
-            for (let j = mes_loot_obj.length - 1; j > 0; j--) {
-                mes_loot += "\""+mes_loot_obj[j].title + "\", ";
-            }
-            if (mes_loot_obj.length > 0) {
-                mes_loot += "\""+mes_loot_obj[0].title + "\". ";
-                console.log(mes_loot);
-            }
-            mes_loot_obj = null;
-    }
-
-    function printLootBox(path) {
+    function printLoot() {
         let mes_loot = "Вы получили: ";
-        let mes_loot_obj = findElements(path);
+        let mes_loot_obj = findElements(PATH_TEXT_MOB_LOOT);
         for (let j = mes_loot_obj.length - 1; j > 0; j--) {
-            mes_loot += "\""+mes_loot_obj[j].alt + "\", ";
+            mes_loot += "\"" + mes_loot_obj[j].title + "\", ";
         }
         if (mes_loot_obj.length > 0) {
-            mes_loot += "\""+mes_loot_obj[0].alt + "\". ";
+            mes_loot += "\"" + mes_loot_obj[0].title + "\". ";
             console.log(mes_loot);
         }
         mes_loot_obj = null;
     }
-
 
     function printTimer() {
         if (log_time_run) {
@@ -103,6 +89,22 @@
             mes_win_obj[j].click();
         }
         mes_win_obj = null;
+    }
+
+
+
+    function printLootBox() {
+        let mes_loot = "Вы получили: ";
+        let mes_loot_obj = findElements(PATH_TEXT_BOX_LOOT);
+        for (let j = mes_loot_obj.length - 1; j > 0; j--) {
+            mes_loot += "\""+mes_loot_obj[j].alt + "\", ";
+        }
+        if (mes_loot_obj.length > 0) {
+            mes_loot += "\""+mes_loot_obj[0].alt + "\". ";
+            console.log(mes_loot);
+        }
+        mes_loot_obj = null;
+        setTimeout(clearMessageWindows,500);
     }
 
     function clickAbility() {
@@ -181,7 +183,7 @@
         min_xp %= 100;
         ability %= 2;
         if (log_loot)
-            printLoot(PATH_TEXT_MOB_LOOT);
+            printLoot();
         if (end_loop <= 0) {
             return;
         }
@@ -229,11 +231,10 @@
             }else{
                 return
             }
-            setTimeout(printLootBox,250,PATH_TEXT_BOX_LOOT);
-            setTimeout(clearMessageWindows,1000);
+            setTimeout(printLootBox,500);
             obj_box = null;
             amt--;
-            setTimeout(next,250);
+            setTimeout(next,500);
         };
         setTimeout(next,500);
         obj_btn_info = null;
