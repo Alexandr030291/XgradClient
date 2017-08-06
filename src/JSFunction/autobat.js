@@ -255,11 +255,11 @@
     //export
     window.start = start;
     window.stop = stop;
-    window.id_mob = id_mob;
-    window.min_xp = min_xp;
-    window.end_loop = end_loop ;
-    window.log_time_run = log_time_run;
-    window.log_loot = log_loot ;
+    window.id_mob = function(arg){id_mob=arg;};
+    window.min_xp = function(arg){min_xp=arg;};;
+    window.end_loop = function(arg){end_loop=arg;}; ;
+    window.log_time_run = function(arg){log_time_run;};
+    window.log_loot = function(arg){log_loot=arg;};
     window.openBox = openBox;
     window.PATH_BOX_OBELISK=PATH_BOX_OBELISK;
     window.PATH_BOX_SPRING_4=PATH_BOX_SPRING_4;
