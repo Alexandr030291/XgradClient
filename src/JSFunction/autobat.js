@@ -22,8 +22,10 @@
     let ability = 0;
     let timer_auto = 0;
 
-
-
+    const PATH_BOX_OBELISK = "//*[contains(@alt,'Обелиск ')]/../../a";
+    const PATH_BTN_INFO ="//*[contains(@class,'btn-info')]";
+    const PATH_TEXT_BOX_LOOT = "//*[@class='content']/img";
+    const PATH_TEXT_MOB_LOOT = "//*[@class='reward_loot']/*/*";
     function findElements(arg) {
         let max_loop = 100;
         let result = [];
@@ -40,7 +42,6 @@
     function findObjBtnAttackRed(){return findElements("//*[contains(text(),'Атака')]/.."); }
     function findObjBtnAttackBlue(){return findElements("//*[contains(text(),'Защита')]/.."); }
     function findObjBtnClose(){return findElements("//*[contains(text(),'закрыть')]/../../a");}
-    function findObjLoot(){return findElements("//*[@class='reward_loot']/*/*");}
     function findObjBtnAbility(){return findElements("//a[contains(@class,'ability')]");}
     function findObjProgressAllies(){return findElements("//*[contains(@class,'warriors-list type1')]//*[contains(@class,'progress')] /*[contains(@style,'width')] ");}
     function findObjProgressEnemies(){return findElements("//*[contains(@class,'warriors-list type2')]//*[contains(@class,'progress')] /*[contains(@style,'width')] ");}
@@ -52,10 +53,9 @@
     function findObjBtnBattle(){return findElements("//a[contains(text(),'Бой')]");}
     function findObjBtnAttacking(){return findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")}
 
-    function printLoot() {
-        if (log_loot) {
+    function printLoot(path) {
             let mes_loot = "Вы получили: ";
-            let mes_loot_obj = findObjLoot();
+            let mes_loot_obj = findElements(path);
             for (let j = mes_loot_obj.length - 1; j > 0; j--) {
                 mes_loot += "\""+mes_loot_obj[j].title + "\", ";
             }
@@ -64,8 +64,21 @@
                 console.log(mes_loot);
             }
             mes_loot_obj = null;
-        }
     }
+
+    function printLootBox(path) {
+        let mes_loot = "Вы получили: ";
+        let mes_loot_obj = findElements(path);
+        for (let j = mes_loot_obj.length - 1; j > 0; j--) {
+            mes_loot += "\""+mes_loot_obj[j].alt + "\", ";
+        }
+        if (mes_loot_obj.length > 0) {
+            mes_loot += "\""+mes_loot_obj[0].alt + "\". ";
+            console.log(mes_loot);
+        }
+        mes_loot_obj = null;
+    }
+
 
     function printTimer() {
         if (log_time_run) {
@@ -167,12 +180,12 @@
         id_mob %= 3;
         min_xp %= 100;
         ability %= 2;
-        clearMessageWindows();
+        if (log_loot)
+            printLoot(PATH_TEXT_MOB_LOOT);
         if (end_loop <= 0) {
             return;
         }
         end_loop--;
-        printLoot();
         let btn_attack_obj = findObjBtnAttackRed();
         let btn_attach_obj_blue = findObjBtnAttackBlue();
         if (btn_attack_obj.length > 0||btn_attach_obj_blue.length>0) {
@@ -190,19 +203,41 @@
 
         btn_attack_obj = null;
         btn_attach_obj_blue = null;
-        clearMessageWindows();
     }
 
     function start() { //запуск переодических действий
         timer_auto = setInterval(function () {
             attack();
             printTimer();
+            clearMessageWindows();
         }, 500);
     }
 
     function stop() {
         clearInterval(timer_auto);
     } //функция остановки полностью останавливает исполнение
+
+    function openBox(name,amt) {
+        let obj_btn_info = findElements(PATH_BTN_INFO);
+        if (obj_btn_info.length===0) return;
+        obj_btn_info[0].click();
+        let next = function () {
+            let obj_box = findElements(name);
+            console.log(amt);
+            if (obj_box.length>0&&amt>0){
+                obj_box[0].click();
+            }else{
+                return
+            }
+            setTimeout(printLootBox,250,PATH_TEXT_BOX_LOOT);
+            setTimeout(clearMessageWindows,1000);
+            obj_box = null;
+            amt--;
+            setTimeout(next,250);
+        };
+        setTimeout(next,500);
+        obj_btn_info = null;
+    }
 
 
     start();
@@ -215,5 +250,7 @@
     window.end_loop = end_loop ;
     window.log_time_run = log_time_run;
     window.log_loot = log_loot ;
+    window.openBox = openBox;
+    window.PATH_BOX_OBELISK=PATH_BOX_OBELISK;
 
 })();
