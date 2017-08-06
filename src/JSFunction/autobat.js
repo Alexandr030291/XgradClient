@@ -38,6 +38,7 @@
     }
 
     function findObjBtnAttackRed(){return findElements("//*[contains(text(),'Атака')]/.."); }
+    function findObjBtnAttackBlue(){return findElements("//*[contains(text(),'Защита')]/.."); }
     function findObjBtnClose(){return findElements("//*[contains(text(),'закрыть')]/../../a");}
     function findObjLoot(){return findElements("//*[@class='reward_loot']/*/*");}
     function findObjBtnAbility(){return findElements("//a[contains(@class,'ability')]");}
@@ -173,7 +174,8 @@
         printLoot();
         clearMessageWindows();
         let btn_attack_obj = findObjBtnAttackRed();
-        if (btn_attack_obj.length > 0) {
+        let btn_attach_obj_blue = findObjBtnAttackBlue();
+        if (btn_attack_obj.length > 0||btn_attach_obj_blue.length>0) {
             clickAbility();
             healing();
             usedTrap();
@@ -187,7 +189,7 @@
         }
 
         btn_attack_obj = null;
-
+        btn_attach_obj_blue = null;
     }
 
     function start() { //запуск переодических действий
