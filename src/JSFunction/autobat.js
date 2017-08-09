@@ -45,7 +45,7 @@
     }
 
     function findObjBtnAttackRed(){return findElements("//*[contains(text(),'Атака')]/.."); }
-    function findObjBtnAttackBlue(){return findElements("//*[contains(text(),'Защита')]/.."); }
+    function findObjBtnAttackBlue(){return findElements("//strong[contains(text(),'Защита')]/.."); }
     function findObjBtnClose(){return findElements("//*[contains(text(),'закрыть')]/../../a");}
     function findObjBtnAbility(){return findElements("//a[contains(@class,'ability')]");}
     function findObjProgressAllies(){return findElements("//*[contains(@class,'warriors-list type1')]//*[contains(@class,'progress')] /*[contains(@style,'width')] ");}
