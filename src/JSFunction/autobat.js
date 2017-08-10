@@ -232,6 +232,7 @@
     }
 
     function start() { //запуск переодических действий
+	stop();
         timer_auto = setInterval(function () {
             attack();
             printTimer();
