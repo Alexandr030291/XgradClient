@@ -9,7 +9,7 @@
  *  let log_loot(arg) - показывать отчет по дропу
  *  start() - запусть отслеживатель
  *  stop() - остановить
- *  openBox(name) - вскрыть коробки доступные значения PATH_BOX_OBELISK и PATH_BOX_SPRING_4
+ *  openBox(name) - вскрыть коробки доступные значения PATH_BOX_OBELISK, PATH_BOX_RAT и PATH_BOX_SPRING_4
  *  timerRunaway(time) - команда побега на кодаф, время через которое надо сбежать на кадаф пишется в секунда
  * */
 
@@ -27,6 +27,7 @@
 
     const PATH_BOX_OBELISK = "//*[contains(@alt,'Обелиск ')]/../../a";
     const PATH_BOX_SPRING_4 = "//*[contains(@alt,'Коробка майских праздников')]/../../a";
+    const PATH_BOX_RAT = "//*[contains(@alt,'Крысиная коробка')]/../../a";		
     const PATH_BTN_INFO ="//*[contains(@class,'btn-info')]";
     const PATH_TEXT_BOX_LOOT = "//*[@class='content']/img";
     const PATH_TEXT_MOB_LOOT = "//*[@class='reward_loot']/*/*";
