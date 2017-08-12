@@ -303,5 +303,6 @@
     window.openBox = openBox;
     window.PATH_BOX_OBELISK=PATH_BOX_OBELISK;
     window.PATH_BOX_SPRING_4=PATH_BOX_SPRING_4;
+    window.PATH_BOX_RAT=PATH_BOX_RAT;	
     window.timerRunaway=timerRunaway;
 })();
