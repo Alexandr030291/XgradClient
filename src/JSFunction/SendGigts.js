@@ -28,4 +28,4 @@ function send(users) {
 }
 
 
-send(["Victorius1945", "konfbI4", "Коза Дереза", "Antisemit", "rus1978", "denwarior", "Augelv", "Dimuta", "Adita", "Heigl"]);
+send(["Nerefeld", "Eyvill Zapor", "Eyvill Pomidor", "gaijinko", "Legster", "LeizZ", "vbn m", "poiuyt", "varCAT", "Liposakcia"]);
