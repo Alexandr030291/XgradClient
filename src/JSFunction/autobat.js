@@ -26,7 +26,7 @@
         constructor(){
             this.id_mob = 0;
             this.min_xp = 50;
-            this.end_loop = 2;
+            this.end_loop = 999;
             this.log_time_run = false;
             this.log_loot = true;
             this.runaway_bool = true;
