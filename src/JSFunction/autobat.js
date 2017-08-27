@@ -16,99 +16,76 @@
 (function () {
     'use strict';
 
-    let id_mob = 0;
-    let min_xp = 50;
-    let end_loop = 8 * 60 * 60 * 2 - 2;
-    let log_time_run = false;
-    let log_loot = true;
-
     let ability = 0;
     let timer_auto = 0;
 
+    let runaway_bool=false;
+
+
+   class Settings{
+        constructor(){
+            this.id_mob = 0;
+            this.min_xp = 50;
+            this.end_loop = 2;
+            this.log_time_run = false;
+            this.log_loot = true;
+            this.runaway_bool = true;
+            this.traps_bool = true;
+            this.knife_bool = true;
+        }
+    }
+
+    let settings = new Settings();
+
     const PATH_BOX_OBELISK = "//*[contains(@alt,'Обелиск ')]/../../a";
     const PATH_BOX_SPRING_4 = "//*[contains(@alt,'Коробка майских праздников')]/../../a";
-    const PATH_BOX_RAT = "//*[contains(@alt,'Крысиная коробка')]/../../a";		
-    const PATH_BTN_INFO ="//*[contains(@class,'btn-info')]";
+    const PATH_BOX_RAT = "//*[contains(@alt,'Крысиная коробка')]/../../a";
+    const PATH_BTN_INFO = "//*[contains(@class,'btn-info')]";
     const PATH_TEXT_BOX_LOOT = "//*[@class='content']/img";
     const PATH_TEXT_MOB_LOOT = "//*[@class='reward_loot']/*/*";
-    const PATH_BTN_BAG= "//*[contains(@class,'bag ')]";
-    function findElements(arg) {
-        let max_loop = 100;
-        let result = [];
-        let elem = document.evaluate(arg, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let max_element = (elem.snapshotLength > max_loop) ? max_loop : elem.snapshotLength;
-        for (let i = 0; i < max_element; i++) {
-            result.push(elem.snapshotItem(i))
-        }
+    const PATH_BTN_BAG = "//*[contains(@class,'bag ')]";
+
+
+    const PATH_OBJ_BTN_ATTACK_RED = "//*[contains(text(),'Атака')]/..";
+    const PATH_OBJ_BTN_ATTACK_BLUE = "//strong[contains(text(),'Защита')]/..";
+    const PATH_OBJ_BTN_CLOSE = "//*[contains(text(),'закрыть')]/../../a";
+    const PATH_OBJ_BTN_ABILITY = "//a[contains(@class,'ability')]";
+    const PATH_OBJ_PROGRESS_ALLIES = "//*[contains(@class,'warriors-list type1')]//*[contains(@class,'progress')] /*[contains(@style,'width')] ";
+    const PATH_OBJ_PROGRESS_ENEMIES = "//*[contains(@class,'warriors-list type2')]//*[contains(@class,'progress')] /*[contains(@style,'width')] ";
+    const PATH_OBJ_HEALING = "//*[contains(@title,'осстанавл')]";
+    const PATH_OBJ_CROSS = "//*[contains(@title,'эрлийский крест')]";
+    const PATH_OBJ_TRAP = "//*[contains(@title,'ловушка')]";
+    const PATH_OBJ_KNIFE = "//*[contains(@title,'шкур')]";
+    const PATH_OBJ_TIMER_MOB = "//*[contains(@class,'mob')]";
+    const PATH_OBJ_BATTLE = "//a[contains(text(),'Бой')]";
+    const PATH_OBJ_ATTACKING = "//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]";
+    const PATH_OBJ_BTN_MAP = "//*[contains(@onclick,'map')]";
+    const PATH_OBJ_MAP_KADAF = "//area[contains(@data-id,'11')]";
+    const PATH_OBJ_BTN_PORTAL = "//*[contains(@class,'jqmClose')]";
+    const PATH_OBJ_TEXT_PORTAL = "//*[contains(@class,'jqmClose')]/*[contains(text(),'Портал')]";
+    const PATH_BTN_BATTLE_CLOSE ="//*[contains(@class,'battle btn-close')]";
+
+    function checkElement(path) {
+        let elem = document.evaluate(path, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let result = (elem.snapshotLength > 0);
         elem = null;
         return result;
-
     }
 
-    function findObjBtnAttackRed(){return findElements("//*[contains(text(),'Атака')]/.."); }
-    function findObjBtnAttackBlue(){return findElements("//strong[contains(text(),'Защита')]/.."); }
-    function findObjBtnClose(){return findElements("//*[contains(text(),'закрыть')]/../../a");}
-    function findObjBtnAbility(){return findElements("//a[contains(@class,'ability')]");}
-    function findObjProgressAllies(){return findElements("//*[contains(@class,'warriors-list type1')]//*[contains(@class,'progress')] /*[contains(@style,'width')] ");}
-    function findObjProgressEnemies(){return findElements("//*[contains(@class,'warriors-list type2')]//*[contains(@class,'progress')] /*[contains(@style,'width')] ");}
-    function findObjHealing(){ return findElements("//*[contains(@title,'осстанавл')]");}
-    function findObjCross() {return findElements("//*[contains(@title,'эрлийский крест')]");}
-    function findObjTrap(){return findElements("//*[contains(@title,'ловушка')]");}
-    function findObjKnife(){return findElements("//*[contains(@title,'шкур')]")}
-    function findObjTimerMob() {return findElements("//*[contains(@class,'mob')]");}
-    function findObjBtnBattle(){return findElements("//a[contains(text(),'Бой')]");}
-    function findObjBtnAttacking(){return findElements("//a[contains(text(),'АТАКОВАТЬ')][contains(@style,'none')]")}
-    function findObjBtnMap(){return findElements("//*[contains(@onclick,'map')]");}
-    function findObjMapKadaf(){return findElements("//area[contains(@data-id,'11')]");}
-    function findObjBtnPortal(){return findElements("//*[contains(@class,'jqmClose')]");}	
-    function findObjTextPortal(){return findElements("//*[contains(@class,'jqmClose')]/*[contains(text(),'Портал')]");}	
-	
-    function timerRunaway(time){
-	    time*=1000;
-	    setTimeout(function(){
-            let obj_btn_map = findObjBtnMap();
-            if (obj_btn_map.length > 0){
-                obj_btn_map[0].click();
-		        setTimeout(function(){
-                    let obj_map_kadaf = findObjMapKadaf();
-                    if (obj_map_kadaf.length > 0){
-                        obj_map_kadaf[0].click();
-                    }
-                    obj_map_kadaf=null;
-		   setTimeout(function(){
-		   	let obj_btn_portal = findObjBtnPortal();
-			let obj_txt_portal = findObjTextPortal();
-			if (obj_btn_portal.length > 0){
-			    if (obj_txt_portal.length > 0){
-                                obj_btn_portal[1].click();
-			    }else{
-				obj_btn_portal[0].click();
-			    }
-                    	}
-			obj_btn_portal = null;
-			obj_txt_portal = null;
-		   },500);
-                },500);
-            }
-            obj_btn_map = null;
-        },time);
-    }
-
-    function printLoot() {
-        let mes_loot = "Вы получили: ";
-        let mes_loot_obj = findElements(PATH_TEXT_MOB_LOOT);
-        for (let j = mes_loot_obj.length - 1; j > 0; j--) {
-            mes_loot += "\"" + mes_loot_obj[j].title + "\", ";
+    function clickElements(path, id) {
+        if (!checkElement(path)) return false;
+        let elem = document.evaluate(path, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        if (id > elem.snapshotLength) {
+            id = elem.snapshotLength - 1;
         }
-        if (mes_loot_obj.length > 0) {
-            mes_loot += "\"" + mes_loot_obj[0].title + "\". ";
-            console.log(mes_loot);
-        }
-        mes_loot_obj = null;
+        elem.snapshotItem(id).click();
+        elem = null;
+        return true;
     }
+
 
     function printTimer() {
-        if (log_time_run) {
+        if (settings.log_time_run) {
             let hour = end_loop;
             let mili = hour % 2;
             hour -= mili;
@@ -124,120 +101,186 @@
         }
     }
 
+    function printLoot() {
+        let path = PATH_TEXT_MOB_LOOT;
+        if (!checkElement(path)) return;
+        let mes_loot = "Вы получили: ";
+        let mes_loot_obj = document.evaluate(path, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let id = mes_loot_obj.snapshotLength - 1;
+        while (id > 0) {
+            mes_loot += "\"" + mes_loot_obj.snapshotItem(id).title + "\", ";
+            id--;
+        }
+        mes_loot += "\"" + mes_loot_obj.snapshotItem(id).title + "\". ";
+        console.log(mes_loot);
+        mes_loot_obj = null;
+    }
+
+    function printLootBox() {
+        const path =PATH_TEXT_BOX_LOOT;
+        let mes_loot = "Вы получили: ";
+        let mes_loot_obj = document.evaluate(path, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let id = mes_loot_obj.snapshotLength - 1;
+        if (id<0)
+            return;
+        while (id > 0) {
+            mes_loot += "\"" + mes_loot_obj.snapshotItem(id).alt + "\", ";
+            id--;
+        }
+        mes_loot += "\"" + mes_loot_obj.snapshotItem(id).alt + "\". ";
+        console.log(mes_loot);
+        mes_loot_obj = null;
+    }
+
+    function clickItem(name, amt) {
+        if (amt<=0)return;
+        checkElement(name,0);
+        amt--;
+        setTimeout(printLootBox,500,name,amt);
+        setTimeout(clearMessageWindows,500);
+        setTimeout(clickItem,500,name,amt);
+    }
+
+    function findBeg(name,amt,id_start) {
+        let obj_beg = document.evaluate(PATH_BTN_BAG, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let bag_id = id_start;
+        if (bag_id >= obj_beg.snapshotLength) {
+            return;
+        }
+        obj_beg.snapshotItem(bag_id).click();
+        obj_beg = null;
+        if (checkElement(name))
+            setTimeout(clickItem, 500, name, amt);
+        else
+            setTimeout(findBeg, 500, name, amt,bag_id + 1);
+    }
+
+    function openBox(name,amt) {
+        if (!clickElements(PATH_BTN_INFO,0))
+            return;
+        setTimeout(findBeg,500,name,amt,0);
+    }
+
+    function clickAbility() {
+        ability++;
+        ability%=2;
+        clickElements(PATH_OBJ_BTN_ABILITY,ability);
+    }
+
+    function healing(){
+        let progress_obj_allies = document.evaluate(PATH_OBJ_PROGRESS_ALLIES, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        const add_xp = (checkElement(PATH_OBJ_CROSS))?15:0;
+        if (progress_obj_allies.snapshotLength > 0) {
+            let str_xp = progress_obj_allies.snapshotItem(0).style.width;
+            let  xp = add_xp+ Number(str_xp.split("%")[0]);
+            if (settings.min_xp > xp){
+                clickElements(PATH_OBJ_HEALING,0);
+            }
+        }
+        clickElements(PATH_OBJ_PROGRESS_ENEMIES,0);
+        progress_obj_allies = null;
+    }
+
     function clearMessageWindows() {
-        let mes_win_obj = findObjBtnClose();
-        for (let j = mes_win_obj.length - 1; j >= 0; j--) {
-            mes_win_obj[j].click();
+        let mes_win_obj = document.evaluate(PATH_OBJ_BTN_CLOSE, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let id = mes_win_obj.snapshotLength - 1;
+        while (id >= 0) {
+            mes_win_obj.snapshotItem(id).click();
+            id--;
         }
         mes_win_obj = null;
     }
 
-    function clickAbility() {
-        let btn_ability_obj = findObjBtnAbility();
-        if (btn_ability_obj.length > 0) {
-            btn_ability_obj[ability].click();
-            ability++;
-        }
-        btn_ability_obj = null;
-    }
-    
-    function healing() {
-        let progress_obj_allies = findObjProgressAllies();
-        let progress_obj_enemies = findObjProgressEnemies();
-        let obj_healing = findObjHealing();
-        let obj_cross = findObjCross();
-        const add_xp = 15;
-        if (progress_obj_allies.length > 0) {
-            let str_xp = progress_obj_allies[0].style.width;
-            let xp = str_xp.split("%")[0];
-            if(obj_cross.length>0) xp+=add_xp;
-            if (min_xp > xp
-                && obj_healing.length > 0){
-                obj_healing[0].click();
-            }
-        }
-        if (progress_obj_enemies.length > 0) {
-            progress_obj_enemies[0].click();
-        }
-        progress_obj_allies = null;
-        progress_obj_enemies = null;
-        obj_healing = null;
-        obj_cross = null;
-    }
-    
     function usedTrap() {
-        let obj_trap = findObjTrap();
-        if (obj_trap.length > 0) {
-            obj_trap[0].click();
-        }
-        obj_trap = null;
+        if (!settings.traps_bool)
+            return;
+        clickElements(PATH_OBJ_TRAP,0);
     }
 
     function usedKnife() {
-        let obj_knife = findObjKnife();
-        if (obj_knife.length > 0) {
-            obj_knife[0].click();
+        if (!settings.knife_bool)
+            return;
+        clickElements(PATH_OBJ_KNIFE,0);
+    }
+
+    function goToKadaf() {
+        if (!clickElements(PATH_OBJ_BTN_MAP)) {
+            return;
         }
-        obj_knife = null;
+        setTimeout(function () {
+            clickElements(PATH_OBJ_MAP_KADAF,0);
+            setTimeout(function () {
+                if(checkElement(PATH_OBJ_TEXT_PORTAL)){
+                    clickElements(PATH_OBJ_BTN_PORTAL,1);
+                }else {
+                    clickElements(PATH_OBJ_BTN_PORTAL,0);
+                }
+                stop();
+            }, 500);
+        }, 500);
     }
 
     function selectMob() {
-        let timer_mob_obj = findObjTimerMob();
+        let timer_mob_obj = document.evaluate(PATH_OBJ_TIMER_MOB,
+            document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         let timer_mob = 0;
-        if (timer_mob_obj.length > 0) {
-            let timer_mob_arr = timer_mob_obj[0].textContent.split(':');
+        if (timer_mob_obj.snapshotLength > 0) {
+            let timer_mob_arr = timer_mob_obj.snapshotItem(0).textContent.split(':');
             for (let j = 0; j < timer_mob_arr.length; j++) {
                 timer_mob *= 60;
                 timer_mob += timer_mob_arr[j];
             }
         }
-        timer_mob_obj =null;
+        timer_mob_obj = null;
         if (timer_mob > 0) return;
-        let obj_btn_battle = findObjBtnBattle();
-        if (obj_btn_battle.length > 0) {
-            obj_btn_battle[0].click();
-            let obj_mob = findObjBtnAttacking();
-            if (obj_mob.length > 0) {
-                obj_mob [id_mob % obj_mob.length].click();
-            }
-        }
+        clickElements(PATH_OBJ_BATTLE, 0);
+        clickElements(PATH_OBJ_ATTACKING, settings.id_mob);
     }
 
     function attack() {
-        id_mob %= 3;
-        min_xp %= 100;
-        ability %= 2;
-        if (log_loot)
-            printLoot();
-        if (end_loop <= 0) {
-            return;
-        }
-        end_loop--;
-        let btn_attack_obj = findObjBtnAttackRed();
-        let btn_attach_obj_blue = findObjBtnAttackBlue();
-        if (btn_attack_obj.length > 0||btn_attach_obj_blue.length>0) {
-            clickAbility();
-            healing();
-            usedTrap();
-            usedKnife();
-            btn_attack_obj=findObjBtnAttackRed();
-            if (btn_attack_obj.length > 0) {
-                btn_attack_obj[0].click()
-            }
-        } else {
-            selectMob();
-        }
-
-        btn_attack_obj = null;
-        btn_attach_obj_blue = null;
+        clickAbility();
+        healing();
+        usedTrap();
+        usedKnife();
+        clickElements(PATH_OBJ_BTN_ATTACK_RED, 0);
     }
 
     function start() { //запуск переодических действий
-	stop();
+        stop();
+        let flag = false;
         timer_auto = setInterval(function () {
-            attack();
+            if (checkElement(PATH_BTN_BATTLE_CLOSE)) {
+                attack();
+                if (flag){
+                    settings.end_loop--;
+                    console.log(settings.end_loop);
+                    flag = false;
+                }
+            } else {
+
+                if (settings.end_loop <= 0) {
+                    if (settings.runaway_bool) {
+                        runaway_bool =settings.runaway_bool;
+                    } else {
+                        return;
+                    }
+                }
+                if (runaway_bool) {
+                    goToKadaf();
+                    settings.end_loop = 0;
+                    runaway_bool = false;
+                    return;
+                }
+                selectMob();
+                flag = true;
+            }
             printTimer();
-            clearMessageWindows();
+            if (settings.log_loot) {
+                printLoot();
+                clearMessageWindows();
+            }else {
+                clearMessageWindows();
+            }
         }, 500);
     }
 
@@ -245,61 +288,20 @@
         clearInterval(timer_auto);
     } //функция остановки полностью останавливает исполнение
 
-
-    function printLootBox(name,amt) {
-        let mes_loot = "Вы получили: ";
-        let mes_loot_obj = findElements(PATH_TEXT_BOX_LOOT);
-        for (let j = mes_loot_obj.length - 1; j > 0; j--) {
-            mes_loot += "\""+mes_loot_obj[j].alt + "\", ";
-        }
-        if (mes_loot_obj.length > 0) {
-            mes_loot += "\""+mes_loot_obj[0].alt + "\". ";
-            console.log(mes_loot);
-        }
-        mes_loot_obj = null;
-        setTimeout(next,500,name,amt);
-        setTimeout(clearMessageWindows,500);
+    function timerRunaway(time){
+        time*=1000;
+        setTimeout(function () {
+            runaway_bool = true;
+            attack();
+        },time);
     }
-
-    let bag_id=0;
-
-    function next(name,amt) {
-        let obj_box = findElements(name);
-        let obj_beg = findElements(PATH_BTN_BAG);
-        // console.log(amt);
-        if (amt<=0)return;
-        if (obj_box.length>0&&amt>0){
-            amt--;
-            obj_box[0].click();
-            setTimeout(printLootBox,500,name,amt);
-            obj_box = null;
-        }else if(bag_id<obj_beg.length){
-            obj_beg[bag_id].click();
-            setTimeout(next,500,name,amt);
-            bag_id++;
-        }
-    }
-
-    function openBox(name,amt) {
-        bag_id=0;
-        let obj_btn_info = findElements(PATH_BTN_INFO);
-        if (obj_btn_info.length===0) return;
-        obj_btn_info[0].click();
-        setTimeout(next,500,name,amt);
-        obj_btn_info = null;
-    }
-
 
     start();
 
     //export
     window.start = start;
     window.stop = stop;
-    window.id_mob = function(arg){id_mob=arg;};
-    window.min_xp = function(arg){min_xp=arg;};;
-    window.end_loop = function(arg){end_loop=arg;}; ;
-    window.log_time_run = function(arg){log_time_run=arg;};
-    window.log_loot = function(arg){log_loot=arg;};
+    window.settings = settings;
     window.openBox = openBox;
     window.PATH_BOX_OBELISK=PATH_BOX_OBELISK;
     window.PATH_BOX_SPRING_4=PATH_BOX_SPRING_4;
