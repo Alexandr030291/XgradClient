@@ -26,7 +26,7 @@
         constructor(){
             this.id_mob = 0;
             this.min_xp = 50;
-            this.end_loop = 999;
+            this.end_loop = 1;
             this.log_time_run = false;
             this.log_loot = true;
             this.runaway_bool = true;
@@ -73,8 +73,8 @@
     }
 
     function clickElements(path, id) {
-        if (!checkElement(path)) return false;
         let elem = document.evaluate(path, document.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        if (!(elem.snapshotLength > 0)) return false;
         if (id > elem.snapshotLength) {
             id = elem.snapshotLength - 1;
         }
@@ -245,47 +245,43 @@
         clickElements(PATH_OBJ_BTN_ATTACK_RED, 0);
     }
 
-    function start() { //запуск переодических действий
-        stop();
-        let flag = false;
-        timer_auto = setInterval(function () {
-            if (checkElement(PATH_BTN_BATTLE_CLOSE)) {
-                attack();
-                if (flag){
-                    settings.end_loop--;
-                    console.log(settings.end_loop);
-                    flag = false;
-                }
-            } else {
-
-                if (settings.end_loop <= 0) {
-                    if (settings.runaway_bool) {
-                        runaway_bool =settings.runaway_bool;
-                    } else {
-                        return;
-                    }
-                }
-                if (runaway_bool) {
-                    goToKadaf();
-                    settings.end_loop = 0;
-                    runaway_bool = false;
+    function start(flag) { //запуск переодических действий
+        if (checkElement(PATH_BTN_BATTLE_CLOSE)) {
+            attack();
+            if (flag) {
+                settings.end_loop--;
+                console.log(settings.end_loop);
+                flag = false;
+            }
+        } else {
+            if (settings.end_loop <= 0) {
+                if (settings.runaway_bool) {
+                    runaway_bool = settings.runaway_bool;
+                } else {
                     return;
                 }
-                selectMob();
-                flag = true;
             }
-            printTimer();
-            if (settings.log_loot) {
-                printLoot();
-                clearMessageWindows();
-            }else {
-                clearMessageWindows();
+            if (runaway_bool) {
+                goToKadaf();
+                settings.end_loop = 0;
+                runaway_bool = false;
+                return;
             }
-        }, 500);
+            selectMob();
+            flag = true;
+        }
+        printTimer();
+        if (settings.log_loot) {
+            printLoot();
+            clearMessageWindows();
+        } else {
+            clearMessageWindows();
+        }
+        timer_auto = setTimeout(start, 500, flag);
     }
 
     function stop() {
-        clearInterval(timer_auto);
+        clearTimeout(timer_auto);
     } //функция остановки полностью останавливает исполнение
 
     function timerRunaway(time){
@@ -296,7 +292,7 @@
         },time);
     }
 
-    start();
+    start(false);
 
     //export
     window.start = start;
