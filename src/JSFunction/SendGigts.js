@@ -9,7 +9,7 @@ const PATH_OBJ_PRESENT = "//*[contains(@alt,'Коктейль')]/..";
 const PATH_BTN_INFO = "//*[contains(@class,'btn-info')]";
 
 let timeout = 250;
-let timeout2= 2500;
+let timeout2= 3000;
 
 class User{
     constructor(login,password){
@@ -124,14 +124,15 @@ function startSend(user,users,present) {
     window.PATH_OBJ_PRESENT =PATH_OBJ_PRESENT;
 })();
 
-let users = ["Nerefeld", "Eyvill Zapor", "Eyvill Pomidor", "gaijinko", "Legster", "LeizZ", "vbn m", "poiuyt", "varCAT", "Liposakcia"];
+const list_users_1 = ["Nerefeld", "Eyvill Zapor", "Eyvill Pomidor", "gaijinko", "Legster", "LeizZ", "vbn m", "poiuyt", "varCAT", "Liposakcia"];
+const list_users_2 = ["Teufel", "Рад12", "Dyma391", "Bes0813", "Наргисса", "Milena88", "Nordrik", "REMPeYDzh", "Никсонс", "ТемныйУчитель"];
+const list_users_3 = ["lareik", "Бог из Машины", "_ратник_", "Feremnid", "_leaffox", "weetet", "Tetron", "Зло__", "Nerefeld", "Eyvill Zapor"];
+
+
+let users = list_users_1;
 let user = new User ("login","password");
 
 
 startSend(user,users,PATH_OBJ_PRESENT);
 
 
-/*
-users = ["Teufel", "Рад12", "Dyma391", "Bes0813", "Наргисса", "Milena88", "Nordrik", "REMPeYDzh", "Никсонс", "ТемныйУчитель"];
-users = ["lareik", "Бог из Машины", "_ратник_", "Feremnid", "_leaffox", "weetet", "Tetron", "Зло__", "Nerefeld", "Eyvill Zapor"];
-*/
