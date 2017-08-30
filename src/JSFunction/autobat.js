@@ -134,7 +134,7 @@
 
     function clickItem(name, amt) {
         if (amt<=0)return;
-        checkElement(name,0);
+        clickElement(name,0);
         amt--;
         setTimeout(printLootBox,500,name,amt);
         setTimeout(clearMessageWindows,500);
